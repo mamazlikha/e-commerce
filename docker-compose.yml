@@ -1,0 +1,45 @@
+# docker-compose.yml
+version: "3.8"
+services:
+  mongo:
+    image: mongo:5.0
+    container_name: mongo
+    networks:
+      - e-commerce-network
+    environment:
+        - MONGO_INITDB_ROOT_USERNAME=root
+        - MONGO_INITDB_ROOT_PASSWORD=password
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./database/db:/data/db
+      - ./database/dev.archive:/Databases/dev.archive
+      - ./database/production:/Databases/production
+  itemservice:
+    build:
+      context: ./ItemsService
+      dockerfile: Dockerfile
+    container_name: itemservice
+    restart: on-failure
+    networks:
+      - e-commerce-network
+    depends_on:
+      - mongo
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+    environment:
+      - springdoc.show-actuator=true
+      - springdoc.swagger-ui.path=/swagger-ui.html
+      - spring.data.mongodb.authentication-database=admin
+      - spring.data.mongodb.username=root
+      - spring.data.mongodb.password=password
+      - spring.data.mongodb.port=27017
+      - spring.data.mongodb.host=mongo
+      - MONGODB_HOST_HOST=mongo
+      - MONGODB_PORT=27017
+networks:
+  e-commerce-network:
+    external: true
