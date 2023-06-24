@@ -32,6 +32,7 @@ jobs:
       run: |
         sudo apt-get -q update
         sudo apt-get -qy install
+        sudo chmod +x ./build.sh
         ./build.sh
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
