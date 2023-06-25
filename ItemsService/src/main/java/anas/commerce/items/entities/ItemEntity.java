@@ -1,5 +1,6 @@
 package anas.commerce.items.entities;
 
+import com.mongodb.lang.NonNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
@@ -15,11 +16,16 @@ public class ItemEntity {
 
     @Id
     @GeneratedValue
-    public BigInteger id;
+    private BigInteger id;
 
-    public String description;
+    @NonNull
+    private int quantity;
 
-    public long price;
+    @NonNull
+    private String description;
+
+    @NonNull
+    private double price;
 
 
 

@@ -1,10 +1,25 @@
 package anas.commerce.items.dtos;
 
+import com.mongodb.lang.NonNull;
+import com.mongodb.lang.Nullable;
+import jakarta.validation.constraints.NotEmpty;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+@Getter
+@Setter
 public class ItemDTO {
 
-    public Long id;
+    @Nullable
+    private Long id;
 
-    public long price;
+    @NonNull
+    private double price;
 
-    public String description;
+    @NonNull
+    private int quantity;
+
+    @NonNull
+    private String description;
 }

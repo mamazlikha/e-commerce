@@ -9,4 +9,6 @@ public interface IItemsService {
     public void createItem();
 
     List<ItemEntity> findAll();
+
+    void addItem(ItemDTO itemDTO);
 }
