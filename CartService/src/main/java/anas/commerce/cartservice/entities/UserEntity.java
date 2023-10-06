@@ -33,6 +33,6 @@ public class UserEntity {
     private String phoneNumber;
 
     @NonNull
-    private Address address;
+    private AddressEntity address;
 
 }

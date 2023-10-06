@@ -8,7 +8,7 @@ COPY ./ ./
 RUN mvn clean package -DskipTests
 
 # the second stage of our build
-FROM openjdk:17-bullseye
+FROM eclipse-temurin:17-jammy
 
 RUN apt-get update
 RUN apt-get install wait-for-it
@@ -18,5 +18,6 @@ COPY --from=MAVEN_BUILD ./target/items-0.0.1-SNAPSHOT.jar ./items.jar
 
 COPY start.sh start.sh
 RUN chmod +x start.sh
+
 # set the startup command to execute the jar
-ENTRYPOINT ["./start.sh"]
+CMD ["sh","start.sh"]

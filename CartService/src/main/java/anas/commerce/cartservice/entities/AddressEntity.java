@@ -1,6 +1,13 @@
 package anas.commerce.cartservice.entities;
 
-public class Address {
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Getter
+@Setter
+@Document("address")
+public class AddressEntity {
 
 
     private int streetNumber;

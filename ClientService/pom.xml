@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>anas.commerce</groupId>
-    <artifactId>ClientService</artifactId>
+    <artifactId>clientservice</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>ClientService</name>
     <description>ClientService</description>

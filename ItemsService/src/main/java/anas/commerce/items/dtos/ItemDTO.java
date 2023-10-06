@@ -7,12 +7,14 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.math.BigInteger;
+
 @Getter
 @Setter
 public class ItemDTO {
 
     @Nullable
-    private Long id;
+    private BigInteger id;
 
     @NonNull
     private double price;

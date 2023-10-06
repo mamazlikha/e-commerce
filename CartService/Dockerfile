@@ -8,15 +8,16 @@ COPY ./ ./
 RUN mvn clean package -DskipTests
 
 # the second stage of our build
-FROM openjdk:17-bullseye
+FROM eclipse-temurin:17-jammy
 
 RUN apt-get update
 RUN apt-get install wait-for-it
 
 # copy only the artifacts we need from the first stage and discard the rest
-COPY --from=MAVEN_BUILD ./target/items-0.0.1-SNAPSHOT.jar ./cartservice.jar
+COPY --from=MAVEN_BUILD ./target/cartservice-0.0.1-SNAPSHOT.jar ./cartservice.jar
 
 COPY start.sh start.sh
 RUN chmod +x start.sh
+
 # set the startup command to execute the jar
-ENTRYPOINT ["./start.sh"]
+CMD ["sh","start.sh"]

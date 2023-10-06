@@ -26,18 +26,59 @@ services:
       - e-commerce-network
     depends_on:
       - mongo
-    expose:
-      - "8080"
     ports:
-      - "8080:8080"
+      - 8080:8080
     environment:
-      - springdoc.show-actuator=true
-      - springdoc.swagger-ui.path=/swagger-ui.html
-      - spring.data.mongodb.authentication-database=admin
-      - spring.data.mongodb.username=root
-      - spring.data.mongodb.password=password
-      - spring.data.mongodb.port=27017
-      - spring.data.mongodb.host=mongo
+      - SPRING_APP_SERVER_PORT=8080
+      - SPRING_DATA_MONGODB_DATABASE_AUTH=admin
+      - SPRING_DATA_MONGODB_DATABASE_USERNAME=root
+      - SPRING_DATA_MONGODB_PWD=password
+      - SPRING_DATA_MONGODB_PORT=27017
+      - SPRING_DATA_MONGODB_HOST=mongo
+      - MONGODB_HOST_HOST=mongo
+      - MONGODB_PORT=27017
+
+  clientservice:
+    build:
+      context: ./ClientService
+      dockerfile: Dockerfile
+    container_name: clientservice
+    restart: on-failure
+    networks:
+      - e-commerce-network
+    depends_on:
+      - mongo
+    ports:
+      - 8081:8081
+    environment:
+      - SPRING_APP_SERVER_PORT=8081
+      - SPRING_DATA_MONGODB_DATABASE_AUTH=admin
+      - SPRING_DATA_MONGODB_DATABASE_USERNAME=root
+      - SPRING_DATA_MONGODB_PWD=password
+      - SPRING_DATA_MONGODB_PORT=27017
+      - SPRING_DATA_MONGODB_HOST=mongo
+      - MONGODB_HOST_HOST=mongo
+      - MONGODB_PORT=27017
+
+  cartservice:
+    build:
+      context: ./CartService
+      dockerfile: Dockerfile
+    container_name: cartservice
+    restart: on-failure
+    networks:
+      - e-commerce-network
+    depends_on:
+      - mongo
+    ports:
+      - 8082:8082
+    environment:
+      - SPRING_APP_SERVER_PORT=8082
+      - SPRING_DATA_MONGODB_DATABASE_AUTH=admin
+      - SPRING_DATA_MONGODB_DATABASE_USERNAME=root
+      - SPRING_DATA_MONGODB_PWD=password
+      - SPRING_DATA_MONGODB_PORT=27017
+      - SPRING_DATA_MONGODB_HOST=mongo
       - MONGODB_HOST_HOST=mongo
       - MONGODB_PORT=27017
 networks:
