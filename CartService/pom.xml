@@ -84,12 +84,6 @@
             <version>1.0.2</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>anas.commerce</groupId>
-            <artifactId>items</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
 
 	<build>

@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigInteger;
 import java.util.logging.Logger;
 
-@RestController("carts")
+@RestController
 public class GetCartByUSerIdController {
 
     private final Logger logger = Logger.getLogger(GetCartByUSerIdController.class.getName());
     @Autowired
     private GetCartByUSerIdService getCartByUserIdService;
 
-    @GetMapping("/getcartby/{userId}")
+    @GetMapping("carts/getcartby/{userId}")
     public CartEntity getUserCart(@PathVariable("userId") String userId){
         BigInteger userIdParameter = new BigInteger(userId);
         try {

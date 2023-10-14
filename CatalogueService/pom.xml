@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>anas.commerce</groupId>
-    <artifactId>clientservice</artifactId>
+    <artifactId>catalogueservice</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>ClientService</name>
-    <description>ClientService</description>
+    <name>CatalogueService</name>
+    <description>CatalogueService</description>
     <properties>
         <java.version>17</java.version>
     </properties>

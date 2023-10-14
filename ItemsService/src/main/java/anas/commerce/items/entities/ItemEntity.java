@@ -19,15 +19,12 @@ public class ItemEntity {
     private BigInteger id;
 
     @NonNull
-    private int quantity;
-
-    @NonNull
     private String description;
 
     @NonNull
+    private String name;
+
+    @NonNull
     private double price;
-
-
-
 
 }

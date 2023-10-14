@@ -38,11 +38,11 @@ services:
       - MONGODB_HOST_HOST=mongo
       - MONGODB_PORT=27017
 
-  clientservice:
+  catalogueservice:
     build:
-      context: ./ClientService
+      context: ./CatalogueService
       dockerfile: Dockerfile
-    container_name: clientservice
+    container_name: catalogueservice
     restart: on-failure
     networks:
       - e-commerce-network

@@ -1,10 +1,10 @@
-package anas.commerce.clientservice;
+package anas.commerce.catalogueservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ClientServiceApplicationTests {
+class CatalogueServiceApplicationTests {
 
     @Test
     void contextLoads() {

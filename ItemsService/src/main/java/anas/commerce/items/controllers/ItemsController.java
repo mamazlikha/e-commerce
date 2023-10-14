@@ -3,12 +3,14 @@ package anas.commerce.items.controllers;
 import anas.commerce.items.contracts.IItemsService;
 import anas.commerce.items.dtos.ItemDTO;
 import anas.commerce.items.entities.ItemEntity;
+import anas.commerce.items.exception.ItemNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @RestController
@@ -23,7 +25,7 @@ public class ItemsController {
         return itemsService.findAll();
     }
 
-    @PostMapping("/items/add")
+    @PostMapping("items/add")
     public ResponseEntity<String> addItem(@RequestBody @Valid ItemDTO itemDTO){
         try{
             this.itemsService.addItem(itemDTO);
@@ -34,5 +36,15 @@ public class ItemsController {
         }
         return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad request");
 
+    }
+
+    @GetMapping("items/{id}")
+    public ItemDTO getItemById(@PathVariable("id") String strId){
+        BigInteger id = new BigInteger(strId);
+        try {
+            return itemsService.getItemById(id);
+        } catch (ItemNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

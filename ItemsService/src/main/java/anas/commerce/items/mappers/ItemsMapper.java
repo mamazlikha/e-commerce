@@ -1,8 +1,7 @@
-package anas.commerce.cartservice.mappers;
+package anas.commerce.items.mappers;
 
-
-import anas.commerce.cartservice.dtos.ItemDTO;
-import anas.commerce.cartservice.entities.ItemEntity;
+import anas.commerce.items.dtos.ItemDTO;
+import anas.commerce.items.entities.ItemEntity;
 
 public class ItemsMapper {
 

@@ -1,27 +1,35 @@
 package anas.commerce.cartservice.entities;
 
+import com.mongodb.lang.NonNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.OneToMany;
 import java.math.BigInteger;
-import java.util.Set;
 
 @Getter
 @Setter
-@Document("cart")
-public class CartEntity {
+@Document("item")
+public class ItemEntity {
+
     @Id
     @GeneratedValue
     private BigInteger id;
 
-    @OneToMany(mappedBy="cart", fetch = FetchType.LAZY)
-    private Set<ItemEntity> items;
 
-    private double totalPrice;
+    @NonNull
+    private String name;
+
+    @NonNull
+    private String description;
+
+    @NonNull
+    private double price;
+
+
+    @NonNull
+    private int quantity;
 
 }
