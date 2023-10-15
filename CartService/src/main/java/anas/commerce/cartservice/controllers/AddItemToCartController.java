@@ -1,5 +1,6 @@
 package anas.commerce.cartservice.controllers;
 
+import anas.commerce.cartservice.dtos.CartDto;
 import anas.commerce.cartservice.dtos.ItemDTO;
 import anas.commerce.cartservice.entities.CartEntity;
 import anas.commerce.cartservice.services.AddItemToCartService;
@@ -17,11 +18,11 @@ public class AddItemToCartController {
     @Autowired
     private AddItemToCartService addItemToCartService;
 
-    @PostMapping("carts/additem/{userId}")
-    public CartEntity addItem(@PathVariable("userId") String userId, @RequestBody ItemDTO itemDTO){
-        BigInteger userIdParameter = new BigInteger(userId);
+    @PostMapping("carts/additem/{cartId}")
+    public CartDto addItem(@PathVariable("cartId") String cartId, @RequestBody ItemDTO itemDTO){
+        BigInteger cartIdParameter = new BigInteger(cartId);
         try {
-            return addItemToCartService.addItem(userIdParameter, itemDTO);
+            return addItemToCartService.addItem(cartIdParameter, itemDTO);
         }
         catch (Exception e) {
             throw new RuntimeException(e);

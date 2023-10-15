@@ -5,7 +5,7 @@ import anas.commerce.items.contracts.IItemsService;
 import anas.commerce.items.dtos.ItemDTO;
 import anas.commerce.items.entities.ItemEntity;
 import anas.commerce.items.exception.ItemNotFoundException;
-import anas.commerce.items.mappers.ItemsMapper;
+import anas.commerce.items.mappers.ItemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,15 +25,15 @@ public class ItemsService implements IItemsService {
     }
 
     @Override
-    public List<ItemEntity> findAll() {
-        return itemsRepository.findAll();
+    public List<ItemDTO> findAll() {
+        return ItemMapper.transformerToDto(itemsRepository.findAll());
     }
 
     public ItemDTO getItemById(BigInteger id) throws ItemNotFoundException {
         Optional<ItemEntity> itemOpt = itemsRepository.findById(id);
 
         if(itemOpt.isPresent()){
-            return ItemsMapper.transformerToDto(itemOpt.get());
+            return ItemMapper.transformerToDto(itemOpt.get());
         }
         throw new ItemNotFoundException("Id invalid");
     }

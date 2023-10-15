@@ -21,7 +21,7 @@ public class ItemsController {
     public IItemsService itemsService;
 
     @GetMapping("/items")
-    public List<ItemEntity> getAllItems(){
+    public List<ItemDTO> getAllItems(){
         return itemsService.findAll();
     }
 

@@ -10,7 +10,7 @@ import java.util.List;
 public interface IItemsService {
     public void createItem();
 
-    List<ItemEntity> findAll();
+    List<ItemDTO> findAll();
 
     ItemDTO getItemById(BigInteger id) throws ItemNotFoundException;
 

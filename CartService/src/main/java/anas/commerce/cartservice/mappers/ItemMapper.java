@@ -4,7 +4,10 @@ package anas.commerce.cartservice.mappers;
 import anas.commerce.cartservice.dtos.ItemDTO;
 import anas.commerce.cartservice.entities.ItemEntity;
 
-public class ItemsMapper {
+import java.util.HashSet;
+import java.util.Set;
+
+public class ItemMapper {
 
     public static ItemEntity transformerToEntity(ItemDTO dto){
         ItemEntity result = new ItemEntity();
@@ -25,4 +28,26 @@ public class ItemsMapper {
 
         return result;
     }
+
+    public static Set<ItemEntity> transformerToEntity(Set<ItemDTO> dtos){
+        Set<ItemEntity> entities = new HashSet<>();
+        for (ItemDTO dto: dtos
+             ) {
+            entities.add(transformerToEntity(dto));
+
+        }
+        return entities;
+    }
+
+    public static Set<ItemDTO> transformerToDto(Set<ItemEntity> entities){
+        Set<ItemDTO> dtos = new HashSet<>();
+        for (ItemEntity e: entities
+        ) {
+            dtos.add(transformerToDto(e));
+
+        }
+        return dtos;
+    }
+
+
 }
