@@ -8,11 +8,24 @@ import java.math.BigInteger;
 import java.util.List;
 
 public interface IItemsService {
-    public void createItem();
 
+    /**
+     *
+     * */
+    void createItem();
+
+    /**
+     *
+     * */
     List<ItemDTO> findAll();
 
+    /**
+     *
+     * */
     ItemDTO getItemById(BigInteger id) throws ItemNotFoundException;
 
+    /**
+     *
+     * */
     void addItem(ItemDTO itemDTO);
 }

@@ -7,6 +7,9 @@ import java.math.BigInteger;
 
 public interface IAddItemToCartService {
 
+    /**
+     *
+     * */
     CartDto addItem(BigInteger cartId, ItemDTO itemDTO) throws Exception;
 
 }
