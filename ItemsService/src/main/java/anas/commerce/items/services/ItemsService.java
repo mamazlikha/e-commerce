@@ -19,10 +19,6 @@ public class ItemsService implements IItemsService {
     @Autowired
     private IItemsRepository itemsRepository;
 
-    @Override
-    public void createItem() {
-
-    }
 
     @Override
     public List<ItemDTO> findAll() {
@@ -39,12 +35,10 @@ public class ItemsService implements IItemsService {
     }
 
     @Override
-    public void addItem(ItemDTO itemDTO) {
-        ItemEntity itemToAdd = new ItemEntity();
-        itemToAdd.setPrice(itemDTO.getPrice());
-        itemToAdd.setDescription(itemDTO.getDescription());
+    public ItemDTO addItem(ItemDTO itemDTO) throws Exception {
+        ItemEntity itemToAdd = ItemMapper.transformerToEntity(itemDTO);
 
-        this.itemsRepository.save(itemToAdd);
+        return ItemMapper.transformerToDto(itemsRepository.save(itemToAdd));
     }
 
 }

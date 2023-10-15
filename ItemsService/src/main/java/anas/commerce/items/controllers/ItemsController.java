@@ -16,7 +16,6 @@ import java.util.List;
 @RestController
 public class ItemsController {
 
-
     @Autowired
     public IItemsService itemsService;
 
@@ -26,16 +25,13 @@ public class ItemsController {
     }
 
     @PostMapping("items/add")
-    public ResponseEntity<String> addItem(@RequestBody @Valid ItemDTO itemDTO){
-        try{
-            this.itemsService.addItem(itemDTO);
-            return ResponseEntity.status(HttpStatus.CREATED).body("Item was created");
+    public ResponseEntity<ItemDTO> addItem(@RequestBody @Valid ItemDTO itemDTO){
+        try {
+            return ResponseEntity.ok(this.itemsService.addItem(itemDTO));
+        } catch (Exception e) {
+            System.out.printf(e.getMessage());
+            throw new RuntimeException(e);
         }
-        catch (Exception ex){
-            System.out.println(ex);
-        }
-        return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad request");
-
     }
 
     @GetMapping("items/{id}")
