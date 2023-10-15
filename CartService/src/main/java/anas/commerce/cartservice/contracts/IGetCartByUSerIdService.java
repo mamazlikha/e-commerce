@@ -9,6 +9,6 @@ public interface IGetCartByUSerIdService {
     /**
      *
      * */
-    CartDto userCart(BigInteger userId) throws Exception;
+    CartDto getCartById(BigInteger userId) throws Exception;
 
 }

@@ -19,13 +19,13 @@ public class GetCartByUSerIdService implements IGetCartByUSerIdService {
     private ICartRepository repository;
 
 
-    public CartDto userCart(BigInteger userId) throws Exception {
-        Optional<CartEntity> cartOpt = repository.findById(userId);
+    public CartDto getCartById(BigInteger id) throws Exception {
+        Optional<CartEntity> cartOpt = repository.findById(id);
         if(cartOpt.isPresent()) {
             return CartMapper.transformerToDto(cartOpt.get());
         }
 
-        throw new RuntimeException("Invalid user ID : " + userId);
+        throw new RuntimeException("Invalid cart ID : " + id);
     }
 
 }

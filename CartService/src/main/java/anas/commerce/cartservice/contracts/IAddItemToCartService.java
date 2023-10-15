@@ -10,6 +10,6 @@ public interface IAddItemToCartService {
     /**
      *
      * */
-    CartDto addItem(BigInteger cartId, ItemDTO itemDTO) throws Exception;
+    CartDto addItem(BigInteger cartId, String itemId) throws Exception;
 
 }

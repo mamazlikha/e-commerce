@@ -18,11 +18,11 @@ public class AddItemToCartController {
     @Autowired
     private AddItemToCartService addItemToCartService;
 
-    @PostMapping("carts/additem/{id}")
-    public CartDto addItem(@PathVariable("id") String cartId, @RequestBody ItemDTO itemDTO){
+    @PostMapping("carts/additem/{cartId}/{itemId}")
+    public CartDto addItem(@PathVariable("cartId") String cartId, @PathVariable String itemId){
         BigInteger cartIdParameter = new BigInteger(cartId);
         try {
-            return addItemToCartService.addItem(cartIdParameter, itemDTO);
+            return addItemToCartService.addItem(cartIdParameter, itemId);
         }
         catch (Exception e) {
             throw new RuntimeException(e);

@@ -81,6 +81,8 @@ services:
       - SPRING_DATA_MONGODB_HOST=mongo
       - MONGODB_HOST_HOST=mongo
       - MONGODB_PORT=27017
+      - ITEM_SERVICE_HOST=itemservice
+      - ITEM_SERVICE_PORT=8080
 networks:
   e-commerce-network:
     external: true
