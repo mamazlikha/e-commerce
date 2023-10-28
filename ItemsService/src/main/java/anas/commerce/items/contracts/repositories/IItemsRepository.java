@@ -1,4 +1,4 @@
-package anas.commerce.items.contracts;
+package anas.commerce.items.contracts.repositories;
 
 
 import anas.commerce.items.entities.ItemEntity;

@@ -1,4 +1,4 @@
-package anas.commerce.items;
+package anas.commerce.items.services.itemsService;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -40,7 +40,7 @@ public class AddItemToCartService implements IAddItemToCartService {
         Optional<CartEntity> cartOpt = repository.findById(cartId);
         if(cartOpt.isPresent()) {
             CartEntity cart = cartOpt.get();
-            var response = restTemplate.getForEntity(itemServiceUrl+"/items/"+itemId, ItemDTO.class); // TODO replace with a client !
+            var response = restTemplate.getForEntity(itemServiceUrl+"/items/"+itemId, ItemDTO.class); /// TODO replace with a client !
             if (response.getStatusCode() == HttpStatus.OK) {
 
                 cart.getItems().add(ItemMapper.transformerToEntity(response.getBody()));
