@@ -25,3 +25,5 @@ replay_pid*
 /database/
 /*/.mvn/
 /.idea/
+/front-end/.vscode/
+/front-end/.angular/

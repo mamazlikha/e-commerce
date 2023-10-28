@@ -1,0 +1,17 @@
+.gitignore
+.openapi-generator-ignore
+README.md
+api.module.ts
+api/actuator.service.ts
+api/api.ts
+api/itemsController.service.ts
+configuration.ts
+encoder.ts
+git_push.sh
+index.ts
+model/itemDTO.ts
+model/itemEntity.ts
+model/link.ts
+model/models.ts
+param.ts
+variables.ts
