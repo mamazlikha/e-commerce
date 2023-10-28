@@ -5,9 +5,11 @@ import anas.commerce.items.contracts.repositories.IItemsRepository;
 import anas.commerce.items.dtos.ItemDTO;
 import anas.commerce.items.mappers.ItemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class FindAllItemsService implements IFindAllItemsService {
 
     @Autowired

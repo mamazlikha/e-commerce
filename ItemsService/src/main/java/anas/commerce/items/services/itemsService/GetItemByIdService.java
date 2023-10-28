@@ -7,10 +7,12 @@ import anas.commerce.items.entities.ItemEntity;
 import anas.commerce.items.exception.ItemNotFoundException;
 import anas.commerce.items.mappers.ItemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
 import java.util.Optional;
 
+@Service
 public class GetItemByIdService implements IGetItemByIdService {
 
 
