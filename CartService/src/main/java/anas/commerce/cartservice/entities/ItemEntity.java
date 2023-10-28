@@ -32,4 +32,16 @@ public class ItemEntity {
     @NonNull
     private int quantity;
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+
+        if (this == obj) return true;
+
+        if (getClass() != obj.getClass())
+            return false;
+
+        ItemEntity entity = (ItemEntity) obj;
+        return this.name.equals(entity.name) && this.description.equals(entity.description) && this.price == entity.price;
+    }
 }

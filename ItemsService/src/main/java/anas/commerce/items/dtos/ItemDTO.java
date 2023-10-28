@@ -13,6 +13,7 @@ import java.math.BigInteger;
 @Setter
 public class ItemDTO {
 
+
     @Nullable
     private BigInteger id;
 
@@ -24,4 +25,16 @@ public class ItemDTO {
 
     @NonNull
     private String description;
+
+    public ItemDTO(BigInteger id, double price, String name, String description){
+        this.id = id;
+        this.price = price;
+        this.name = name;
+        this.description = description;
+    }
+
+    public ItemDTO(){
+
+    }
+
 }

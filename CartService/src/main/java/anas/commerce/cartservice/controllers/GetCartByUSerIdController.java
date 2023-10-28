@@ -1,6 +1,6 @@
 package anas.commerce.cartservice.controllers;
 
-import anas.commerce.cartservice.entities.CartEntity;
+import anas.commerce.cartservice.dtos.CartDto;
 import anas.commerce.cartservice.services.GetCartByUSerIdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,11 +17,11 @@ public class GetCartByUSerIdController {
     @Autowired
     private GetCartByUSerIdService getCartByUserIdService;
 
-    @GetMapping("carts/getcartby/{userId}")
-    public CartEntity getUserCart(@PathVariable("userId") String userId){
-        BigInteger userIdParameter = new BigInteger(userId);
+    @GetMapping("carts/getcartby/{id}")
+    public CartDto getCartById(@PathVariable("id") String cartId){
+        BigInteger cartIdParameter = new BigInteger(cartId);
         try {
-            return getCartByUserIdService.userCart(userIdParameter);
+            return getCartByUserIdService.getCartById(cartIdParameter);
         }
         catch (Exception e) {
             throw new RuntimeException(e);
