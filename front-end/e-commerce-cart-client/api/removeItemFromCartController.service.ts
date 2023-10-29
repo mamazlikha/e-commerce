@@ -18,8 +18,6 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
-// @ts-ignore
-import { CartDto } from '../model/cartDto';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -30,7 +28,7 @@ import { Configuration }                                     from '../configurat
 @Injectable({
   providedIn: 'root'
 })
-export class GetCartByUSerIdControllerService {
+export class RemoveItemFromCartControllerService {
 
     protected basePath = 'http://localhost:8082';
     public defaultHeaders = new HttpHeaders();
@@ -92,16 +90,20 @@ export class GetCartByUSerIdControllerService {
     }
 
     /**
-     * @param id 
+     * @param cartid 
+     * @param itemid 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getCartById(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<CartDto>;
-    public getCartById(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<CartDto>>;
-    public getCartById(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<CartDto>>;
-    public getCartById(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getCartById.');
+    public removeItemFromCart(cartid: string, itemid: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<object>;
+    public removeItemFromCart(cartid: string, itemid: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<object>>;
+    public removeItemFromCart(cartid: string, itemid: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<object>>;
+    public removeItemFromCart(cartid: string, itemid: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
+        if (cartid === null || cartid === undefined) {
+            throw new Error('Required parameter cartid was null or undefined when calling removeItemFromCart.');
+        }
+        if (itemid === null || itemid === undefined) {
+            throw new Error('Required parameter itemid was null or undefined when calling removeItemFromCart.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -135,8 +137,8 @@ export class GetCartByUSerIdControllerService {
             }
         }
 
-        let localVarPath = `/carts/getcartby/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
-        return this.httpClient.request<CartDto>('get', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/carts/deleteitem/${this.configuration.encodeParam({name: "cartid", value: cartid, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/${this.configuration.encodeParam({name: "itemid", value: itemid, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        return this.httpClient.request<object>('delete', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,

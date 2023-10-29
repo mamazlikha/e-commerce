@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 public class FindAllItemsService implements IFindAllItemsService {
+
+    private final Logger logger = Logger.getLogger(FindAllItemsService.class.getName());
 
     @Autowired
     private IItemsRepository itemsRepository;

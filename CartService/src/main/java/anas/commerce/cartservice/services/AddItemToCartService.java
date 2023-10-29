@@ -1,12 +1,13 @@
 package anas.commerce.cartservice.services;
 
 import anas.commerce.cartservice.contracts.IAddItemToCartService;
-import anas.commerce.cartservice.contracts.ICartRepository;
+import anas.commerce.cartservice.contracts.repositories.ICartRepository;
 import anas.commerce.cartservice.dtos.CartDto;
 import anas.commerce.cartservice.dtos.ItemDTO;
 import anas.commerce.cartservice.entities.CartEntity;
 import anas.commerce.cartservice.mappers.CartMapper;
 import anas.commerce.cartservice.mappers.ItemMapper;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -14,7 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.math.BigInteger;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -36,7 +36,7 @@ public class AddItemToCartService implements IAddItemToCartService {
         restTemplate = builder.build();
     }
 
-    public CartDto addItem(BigInteger cartId, String itemId) throws Exception {
+    public CartDto addItem(ObjectId cartId, String itemId) throws Exception {
         Optional<CartEntity> cartOpt = repository.findById(cartId);
         if(cartOpt.isPresent()) {
             CartEntity cart = cartOpt.get();

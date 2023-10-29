@@ -11,10 +11,8 @@
  */
 
 
-export interface ItemEntity { 
-    id?: number;
-    description: string;
-    name: string;
-    price: number;
+export interface ObjectId { 
+    timestamp?: number;
+    date?: string;
 }
 

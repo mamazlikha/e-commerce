@@ -1,13 +1,11 @@
 package anas.commerce.cartservice.controllers;
 
 import anas.commerce.cartservice.dtos.CartDto;
-import anas.commerce.cartservice.dtos.ItemDTO;
-import anas.commerce.cartservice.entities.CartEntity;
 import anas.commerce.cartservice.services.AddItemToCartService;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigInteger;
 import java.util.logging.Logger;
 
 @RestController
@@ -20,7 +18,7 @@ public class AddItemToCartController {
 
     @PostMapping("carts/additem/{cartId}/{itemId}")
     public CartDto addItem(@PathVariable("cartId") String cartId, @PathVariable String itemId){
-        BigInteger cartIdParameter = new BigInteger(cartId);
+        ObjectId cartIdParameter = new ObjectId(cartId);
         try {
             return addItemToCartService.addItem(cartIdParameter, itemId);
         }

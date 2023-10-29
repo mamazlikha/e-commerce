@@ -1,9 +1,8 @@
 package anas.commerce.cartservice.contracts;
 
 import anas.commerce.cartservice.dtos.CartDto;
-import anas.commerce.cartservice.dtos.ItemDTO;
+import org.bson.types.ObjectId;
 
-import java.math.BigInteger;
 
 public interface IAddItemToCartService {
 
@@ -13,6 +12,6 @@ public interface IAddItemToCartService {
      * @param itemId item's id to add to that cart
      * @return CartDto
      * */
-    CartDto addItem(BigInteger cartId, String itemId) throws Exception;
+    CartDto addItem(ObjectId cartId, String itemId) throws Exception;
 
 }

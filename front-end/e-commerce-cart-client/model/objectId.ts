@@ -9,12 +9,10 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ItemEntity } from './itemEntity';
 
 
-export interface CartEntity { 
-    id?: number;
-    items?: Set<ItemEntity>;
-    totalPrice?: number;
+export interface ObjectId { 
+    timestamp?: number;
+    date?: string;
 }
 

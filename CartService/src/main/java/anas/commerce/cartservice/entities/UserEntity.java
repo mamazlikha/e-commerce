@@ -2,21 +2,23 @@ package anas.commerce.cartservice.entities;
 
 import com.mongodb.lang.NonNull;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import javax.persistence.GeneratedValue;
 
-import java.math.BigInteger;
 
 @Getter
 @Setter
+@RequiredArgsConstructor
 @Document("user")
 public class UserEntity {
 
     @Id
     @GeneratedValue
-    private BigInteger id;
+    private ObjectId id;
 
     @NonNull
     private String firstname;

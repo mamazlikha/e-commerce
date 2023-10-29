@@ -4,15 +4,15 @@ import com.mongodb.lang.NonNull;
 import com.mongodb.lang.Nullable;
 import lombok.Getter;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 
-import java.math.BigInteger;
 
 @Getter
 @Setter
 public class ItemDTO {
 
     @Nullable
-    private BigInteger id;
+    private ObjectId id;
 
     private double price;
 

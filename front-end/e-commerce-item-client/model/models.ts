@@ -1,3 +1,3 @@
 export * from './itemDTO';
-export * from './itemEntity';
 export * from './link';
+export * from './objectId';

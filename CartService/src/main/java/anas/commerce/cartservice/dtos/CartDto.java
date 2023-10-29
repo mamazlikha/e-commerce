@@ -1,11 +1,10 @@
 package anas.commerce.cartservice.dtos;
 
-import anas.commerce.cartservice.entities.ItemEntity;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 
-import java.math.BigInteger;
 import java.util.Set;
 
 @Getter
@@ -13,7 +12,7 @@ import java.util.Set;
 public class CartDto {
 
     @NonNull
-    private BigInteger id;
+    private ObjectId id;
 
     @NonNull
     private Set<ItemDTO> itemsDto;

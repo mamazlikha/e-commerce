@@ -19,9 +19,7 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
-import { CartEntity } from '../model/cartEntity';
-// @ts-ignore
-import { ItemDTO } from '../model/itemDTO';
+import { CartDto } from '../model/cartDto';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -94,20 +92,20 @@ export class AddItemToCartControllerService {
     }
 
     /**
-     * @param userId 
-     * @param itemDTO 
+     * @param cartId 
+     * @param itemId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addItem(userId: string, itemDTO: ItemDTO, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<CartEntity>;
-    public addItem(userId: string, itemDTO: ItemDTO, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<CartEntity>>;
-    public addItem(userId: string, itemDTO: ItemDTO, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<CartEntity>>;
-    public addItem(userId: string, itemDTO: ItemDTO, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
-        if (userId === null || userId === undefined) {
-            throw new Error('Required parameter userId was null or undefined when calling addItem.');
+    public addItem(cartId: string, itemId: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<CartDto>;
+    public addItem(cartId: string, itemId: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpResponse<CartDto>>;
+    public addItem(cartId: string, itemId: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<HttpEvent<CartDto>>;
+    public addItem(cartId: string, itemId: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*', context?: HttpContext}): Observable<any> {
+        if (cartId === null || cartId === undefined) {
+            throw new Error('Required parameter cartId was null or undefined when calling addItem.');
         }
-        if (itemDTO === null || itemDTO === undefined) {
-            throw new Error('Required parameter itemDTO was null or undefined when calling addItem.');
+        if (itemId === null || itemId === undefined) {
+            throw new Error('Required parameter itemId was null or undefined when calling addItem.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -130,15 +128,6 @@ export class AddItemToCartControllerService {
         }
 
 
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
-        }
-
         let responseType_: 'text' | 'json' | 'blob' = 'json';
         if (localVarHttpHeaderAcceptSelected) {
             if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
@@ -150,11 +139,10 @@ export class AddItemToCartControllerService {
             }
         }
 
-        let localVarPath = `/carts/additem/${this.configuration.encodeParam({name: "userId", value: userId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
-        return this.httpClient.request<CartEntity>('post', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/carts/additem/${this.configuration.encodeParam({name: "cartId", value: cartId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/${this.configuration.encodeParam({name: "itemId", value: itemId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        return this.httpClient.request<CartDto>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: itemDTO,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

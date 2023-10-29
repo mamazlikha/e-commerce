@@ -9,13 +9,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { ObjectId } from './objectId';
+import { ItemDTO } from './itemDTO';
 
 
-export interface ItemEntity { 
-    id?: number;
-    name: string;
-    description: string;
-    price: number;
-    quantity: number;
+export interface CartDto { 
+    id?: ObjectId;
+    itemsDto?: Set<ItemDTO>;
+    totalPrice?: number;
 }
 

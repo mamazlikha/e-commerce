@@ -8,8 +8,12 @@ import anas.commerce.items.mappers.ItemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.logging.Logger;
+
 @Service
 public class AddItemService implements IAddItemService {
+
+    private final Logger logger = Logger.getLogger(AddItemService.class.getName());
 
     @Autowired
     private IItemsRepository itemsRepository;

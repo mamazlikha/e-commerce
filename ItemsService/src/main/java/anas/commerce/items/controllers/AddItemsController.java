@@ -2,17 +2,17 @@ package anas.commerce.items.controllers;
 
 import anas.commerce.items.contracts.itemsService.IAddItemService;
 import anas.commerce.items.dtos.ItemDTO;
-import anas.commerce.items.exception.ItemNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigInteger;
-import java.util.List;
+import java.util.logging.Logger;
 
 @RestController
 public class AddItemsController {
+
+    private final Logger logger = Logger.getLogger(AddItemsController.class.getName());
 
     @Autowired
     public IAddItemService addItemService;

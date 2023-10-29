@@ -2,21 +2,25 @@ package anas.commerce.cartservice.entities;
 
 import com.mongodb.lang.NonNull;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.GeneratedValue;
-import java.math.BigInteger;
 
 @Getter
 @Setter
+@RequiredArgsConstructor
+@NoArgsConstructor
 @Document("item")
 public class ItemEntity {
 
     @Id
     @GeneratedValue
-    private BigInteger id;
+    private ObjectId id;
 
 
     @NonNull
@@ -28,9 +32,6 @@ public class ItemEntity {
     @NonNull
     private double price;
 
-
-    @NonNull
-    private int quantity;
 
     @Override
     public boolean equals(Object obj) {

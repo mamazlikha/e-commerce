@@ -9,10 +9,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { ObjectId } from './objectId';
 
 
 export interface ItemDTO { 
-    id?: number;
+    id?: ObjectId;
     price: number;
     name: string;
     description: string;

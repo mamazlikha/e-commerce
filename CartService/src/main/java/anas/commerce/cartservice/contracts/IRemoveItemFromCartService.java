@@ -1,6 +1,7 @@
 package anas.commerce.cartservice.contracts;
 
-import java.math.BigInteger;
+import org.bson.types.ObjectId;
+
 
 public interface IRemoveItemFromCartService {
 
@@ -11,5 +12,5 @@ public interface IRemoveItemFromCartService {
      * @return true if the item was successfully removed from cart
      */
 
-    boolean removeItem(BigInteger cartId, BigInteger itemId);
+    boolean removeItem(ObjectId cartId, ObjectId itemId);
 }
