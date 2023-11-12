@@ -1,7 +1,7 @@
-package anas.commerce.items.services.itemsService;
+package anas.commerce.items.services;
 
 import anas.commerce.items.contracts.repositories.IItemsRepository;
-import anas.commerce.items.contracts.itemsService.IAddItemService;
+import anas.commerce.items.contracts.IAddItemService;
 import anas.commerce.items.dtos.ItemDTO;
 import anas.commerce.items.entities.ItemEntity;
 import anas.commerce.items.mappers.ItemMapper;

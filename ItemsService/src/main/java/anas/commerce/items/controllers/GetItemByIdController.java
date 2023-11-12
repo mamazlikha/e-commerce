@@ -1,6 +1,6 @@
 package anas.commerce.items.controllers;
 
-import anas.commerce.items.contracts.itemsService.IGetItemByIdService;
+import anas.commerce.items.contracts.IGetItemByIdService;
 import anas.commerce.items.dtos.ItemDTO;
 import anas.commerce.items.exception.ItemNotFoundException;
 import org.bson.types.ObjectId;

@@ -1,6 +1,6 @@
-package anas.commerce.items.services.itemsService;
+package anas.commerce.items.services;
 
-import anas.commerce.items.contracts.itemsService.IGetItemByIdService;
+import anas.commerce.items.contracts.IGetItemByIdService;
 import anas.commerce.items.contracts.repositories.IItemsRepository;
 import anas.commerce.items.dtos.ItemDTO;
 import anas.commerce.items.entities.ItemEntity;

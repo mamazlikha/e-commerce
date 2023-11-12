@@ -1,17 +1,14 @@
-package anas.commerce.cartservice.entities;
+package anas.ecommerce.userservice.dtos;
 
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Document("address")
-public class AddressEntity {
-
+public class AddressDto {
 
     @NonNull
     private int streetNumber;
@@ -27,4 +24,5 @@ public class AddressEntity {
 
     @NonNull
     private String country;
+
 }

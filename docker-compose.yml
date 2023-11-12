@@ -38,6 +38,29 @@ services:
       - MONGODB_HOST_HOST=mongo
       - MONGODB_PORT=27017
 
+  userservice:
+    build:
+      context: ./userservice
+      dockerfile: Dockerfile
+    container_name: userservice
+    restart: on-failure
+    networks:
+      - e-commerce-network
+    depends_on:
+      - mongo
+    ports:
+      - 8083:8083
+    environment:
+      - SPRING_APP_SERVER_PORT=8083
+      - SPRING_DATA_MONGODB_DATABASE_AUTH=admin
+      - SPRING_DATA_MONGODB_DATABASE_USERNAME=root
+      - SPRING_DATA_MONGODB_PWD=password
+      - SPRING_DATA_MONGODB_PORT=27017
+      - SPRING_DATA_MONGODB_HOST=mongo
+      - MONGODB_HOST_HOST=mongo
+      - MONGODB_PORT=27017
+
+
   catalogueservice:
     build:
       context: ./CatalogueService
@@ -49,9 +72,9 @@ services:
     depends_on:
       - mongo
     ports:
-      - 8081:8081
+      - 8084:8084
     environment:
-      - SPRING_APP_SERVER_PORT=8081
+      - SPRING_APP_SERVER_PORT=8084
       - SPRING_DATA_MONGODB_DATABASE_AUTH=admin
       - SPRING_DATA_MONGODB_DATABASE_USERNAME=root
       - SPRING_DATA_MONGODB_PWD=password

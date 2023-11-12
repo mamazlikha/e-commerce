@@ -1,6 +1,6 @@
 package anas.commerce.items.controllers;
 
-import anas.commerce.items.contracts.itemsService.IAddItemService;
+import anas.commerce.items.contracts.IAddItemService;
 import anas.commerce.items.dtos.ItemDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

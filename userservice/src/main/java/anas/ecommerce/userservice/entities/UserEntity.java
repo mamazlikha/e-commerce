@@ -1,4 +1,4 @@
-package anas.commerce.cartservice.entities;
+package anas.ecommerce.userservice.entities;
 
 import com.mongodb.lang.NonNull;
 import lombok.Getter;
@@ -8,6 +8,8 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import javax.persistence.GeneratedValue;
+import java.time.LocalDate;
+import java.util.Objects;
 
 
 @Getter
@@ -26,7 +28,8 @@ public class UserEntity {
     @NonNull
     private String lastname;
 
-    private int age;
+    @NonNull
+    private LocalDate birthdate;
 
     @NonNull
     private String email;
@@ -37,4 +40,15 @@ public class UserEntity {
     @NonNull
     private AddressEntity address;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserEntity entity)) return false;
+        return Objects.equals(email, entity.email) || Objects.equals(phoneNumber, entity.phoneNumber) ;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email, phoneNumber);
+    }
 }

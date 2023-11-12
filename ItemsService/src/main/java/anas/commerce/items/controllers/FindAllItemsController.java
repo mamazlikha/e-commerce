@@ -1,6 +1,6 @@
 package anas.commerce.items.controllers;
 
-import anas.commerce.items.contracts.itemsService.IFindAllItemsService;
+import anas.commerce.items.contracts.IFindAllItemsService;
 import anas.commerce.items.dtos.ItemDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

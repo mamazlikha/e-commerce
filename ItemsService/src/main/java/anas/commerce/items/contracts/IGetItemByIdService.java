@@ -1,4 +1,4 @@
-package anas.commerce.items.contracts.itemsService;
+package anas.commerce.items.contracts;
 
 import anas.commerce.items.dtos.ItemDTO;
 import anas.commerce.items.exception.ItemNotFoundException;
