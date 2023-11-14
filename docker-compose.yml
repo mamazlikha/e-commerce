@@ -106,6 +106,20 @@ services:
       - MONGODB_PORT=27017
       - ITEM_SERVICE_HOST=itemservice
       - ITEM_SERVICE_PORT=8080
+
+  frontend:
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
+    container_name: frontend
+    restart: on-failure
+    networks:
+      - e-commerce-network
+    depends_on:
+      - userservice
+    ports:
+      - 4200:80
+
 networks:
   e-commerce-network:
     external: true

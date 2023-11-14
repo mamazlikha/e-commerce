@@ -10,13 +10,16 @@
  * Do not edit the class manually.
  */
 import { ObjectId } from './objectId';
+import { AddressDto } from './addressDto';
 
 
-export interface ItemDTO { 
+export interface UserDto { 
     id?: ObjectId;
-    price?: number;
-    description: string;
-    name: string;
-    quantity?: number;
+    firstname: string;
+    lastname: string;
+    birthdate: string;
+    email: string;
+    phoneNumber: string;
+    address: AddressDto;
 }
 

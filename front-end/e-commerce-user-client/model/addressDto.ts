@@ -9,14 +9,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ObjectId } from './objectId';
 
 
-export interface ItemDTO { 
-    id?: ObjectId;
-    price?: number;
-    description: string;
-    name: string;
-    quantity?: number;
+export interface AddressDto { 
+    streetNumber?: number;
+    streetName?: string;
+    zipCode?: string;
+    city?: string;
+    country?: string;
 }
 
