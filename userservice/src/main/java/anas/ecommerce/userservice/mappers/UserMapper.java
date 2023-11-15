@@ -8,14 +8,14 @@ import java.util.List;
 
 public class UserMapper {
 
-
     public static UserEntity transformerToEntity(UserDto dto){
         UserEntity result = new UserEntity(dto.getFirstname(),
                 dto.getLastname(),
                 dto.getBirthdate(),
                 dto.getEmail(),
                 dto.getPhoneNumber(),
-                AddressMapper.transformerToEntity(dto.getAddress()));
+                CartMapper.transformerToEntity(dto.getUserCartDto()),
+                AddressMapper.transformerToEntity(dto.getUserAddressDto()));
         if(dto.getId() != null){
             result.setId(dto.getId());
         }
@@ -29,6 +29,7 @@ public class UserMapper {
                 entity.getEmail(),
                 entity.getPhoneNumber(),
                 AddressMapper.transformerToDto(entity.getAddress()));
+        result.setUserCartDto(CartMapper.transformerToDto(entity.getUserCart()));
         if(entity.getId() != null){
             result.setId(entity.getId());
         }
@@ -38,9 +39,8 @@ public class UserMapper {
     public static List<UserDto> transformerToDto(List<UserEntity> entities){
         List<UserDto> result = new ArrayList<>();
 
-        for (UserEntity entity : entities) {
-            result.add(transformerToDto(entity));
-        }
+        entities.stream().map(x -> result.add(transformerToDto(x)));
+
         return result;
     }
 

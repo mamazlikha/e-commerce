@@ -1,6 +1,5 @@
 package anas.ecommerce.userservice.dtos;
 
-import anas.ecommerce.userservice.entities.AddressEntity;
 import com.mongodb.lang.NonNull;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +31,8 @@ public class UserDto {
     private String phoneNumber;
 
     @NonNull
-    private AddressDto address;
+    private AddressDto userAddressDto;
+
+    private CartDto userCartDto;
 
 }

@@ -1,4 +1,4 @@
-package anas.commerce.items.dtos;
+package anas.ecommerce.userservice.dtos;
 
 import com.mongodb.lang.NonNull;
 import com.mongodb.lang.Nullable;
@@ -15,19 +15,17 @@ import org.bson.types.ObjectId;
 @NoArgsConstructor
 public class ItemDTO {
 
-
     @Nullable
     private ObjectId id;
 
-    @NonNull
     private double price;
-
-    @NonNull
-    private String name;
 
     @NonNull
     private String description;
 
 
+    @NonNull
+    private String name;
 
+    private int quantity;
 }

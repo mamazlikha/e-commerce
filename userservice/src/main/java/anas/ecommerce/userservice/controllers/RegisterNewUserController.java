@@ -3,6 +3,7 @@ package anas.ecommerce.userservice.controllers;
 import anas.ecommerce.userservice.contracts.IRegisterNewUserService;
 import anas.ecommerce.userservice.dtos.UserDto;
 import anas.ecommerce.userservice.exceptions.UserAlreadyExistException;
+import anas.ecommerce.userservice.exceptions.UserNotCreatedException;
 import anas.ecommerce.userservice.middlewares.ErrorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,6 +34,9 @@ public class RegisterNewUserController {
                 return new ResponseEntity<>(
                         new ErrorResponse("User already exist with that email: " + userAlreadyExistException.getEmail() + " and that phoneNumber: " + userAlreadyExistException.getPhoneNumber()),
                         HttpStatus.CONFLICT);
+            }
+            if(ex instanceof UserNotCreatedException userNotCreatedException){
+                return new ResponseEntity<>(new ErrorResponse("The user couldn't be created !"), HttpStatus.INTERNAL_SERVER_ERROR);
             }
             throw (ex);
         }

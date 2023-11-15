@@ -1,4 +1,4 @@
-package anas.commerce.cartservice.dtos;
+package anas.ecommerce.userservice.dtos;
 
 import lombok.*;
 import org.bson.types.ObjectId;

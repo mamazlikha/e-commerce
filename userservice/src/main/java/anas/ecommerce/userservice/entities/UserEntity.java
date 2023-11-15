@@ -7,7 +7,10 @@ import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.CascadeType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.OneToOne;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -36,6 +39,10 @@ public class UserEntity {
 
     @NonNull
     private String phoneNumber;
+
+    @NonNull
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private CartEntity userCart;
 
     @NonNull
     private AddressEntity address;
