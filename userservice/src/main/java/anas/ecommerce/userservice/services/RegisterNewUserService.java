@@ -12,6 +12,7 @@ import anas.ecommerce.userservice.mappers.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -44,9 +45,9 @@ public class RegisterNewUserService implements IRegisterNewUserService {
     public UserDto registerUser(UserDto userDto) {
         Optional<UserEntity> alreadyExist = repository.findByEmailOrPhoneNumber(userDto.getEmail(), userDto.getPhoneNumber());
         if(alreadyExist.isEmpty()){
-            var response = restTemplate.postForEntity(cartServiceUrl + ":" + cartServicePort +"/carts/createforuser/", "", CartDto.class); /// TODO replace with a client !
+            var response = restTemplate.postForEntity("http://" + cartServiceUrl + ":" + cartServicePort +"/carts/createforuser/", "", CartDto.class); /// TODO replace with a client !
 
-            if(response.getStatusCode().is2xxSuccessful()){
+            if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
                 userDto.setUserCartDto(response.getBody());
                 return UserMapper.transformerToDto(repository.save(UserMapper.transformerToEntity(userDto)));
             }

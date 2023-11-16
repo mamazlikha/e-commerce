@@ -16,7 +16,7 @@ import org.bson.types.ObjectId;
 public class ItemDTO {
 
     @Nullable
-    private ObjectId id;
+    private String id;
 
     private double price;
 

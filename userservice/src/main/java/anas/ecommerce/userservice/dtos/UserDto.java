@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 public class UserDto {
 
-    private ObjectId id;
+    private String id;
 
     @NonNull
     private String firstname;

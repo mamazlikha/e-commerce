@@ -12,7 +12,7 @@ import java.util.Set;
 public class CartDto {
 
     @NonNull
-    private ObjectId id;
+    private String id;
 
     @NonNull
     private Set<ItemDTO> itemsDto;

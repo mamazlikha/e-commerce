@@ -3,9 +3,11 @@ package anas.commerce.cartservice.mappers;
 
 import anas.commerce.cartservice.dtos.ItemDTO;
 import anas.commerce.cartservice.entities.ItemEntity;
+import org.bson.types.ObjectId;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ItemMapper {
 
@@ -13,7 +15,7 @@ public class ItemMapper {
         ItemEntity result = new ItemEntity();
 
         result.setDescription(dto.getDescription());
-        result.setId(dto.getId());
+        result.setId(new ObjectId(dto.getId()));
         result.setPrice(dto.getPrice());
 
         return result;
@@ -23,30 +25,18 @@ public class ItemMapper {
         ItemDTO result = new ItemDTO();
 
         result.setDescription(entity.getDescription());
-        result.setId(entity.getId());
+        result.setId(entity.getId().toHexString());
         result.setPrice(entity.getPrice());
 
         return result;
     }
 
     public static Set<ItemEntity> transformerToEntity(Set<ItemDTO> dtos){
-        Set<ItemEntity> entities = new HashSet<>();
-        for (ItemDTO dto: dtos
-             ) {
-            entities.add(transformerToEntity(dto));
-
-        }
-        return entities;
+        return dtos.stream().map(ItemMapper::transformerToEntity).collect(Collectors.toSet());
     }
 
     public static Set<ItemDTO> transformerToDto(Set<ItemEntity> entities){
-        Set<ItemDTO> dtos = new HashSet<>();
-        for (ItemEntity e: entities
-        ) {
-            dtos.add(transformerToDto(e));
-
-        }
-        return dtos;
+        return entities.stream().map(ItemMapper::transformerToDto).collect(Collectors.toSet());
     }
 
 

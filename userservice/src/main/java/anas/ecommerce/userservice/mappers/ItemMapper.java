@@ -4,6 +4,7 @@ package anas.ecommerce.userservice.mappers;
 
 import anas.ecommerce.userservice.dtos.ItemDTO;
 import anas.ecommerce.userservice.entities.ItemEntity;
+import org.bson.types.ObjectId;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +15,7 @@ public class ItemMapper {
         ItemEntity result = new ItemEntity();
 
         result.setDescription(dto.getDescription());
-        result.setId(dto.getId());
+        result.setId(new ObjectId(dto.getId()));
         result.setPrice(dto.getPrice());
 
         return result;
@@ -24,7 +25,7 @@ public class ItemMapper {
         ItemDTO result = new ItemDTO();
 
         result.setDescription(entity.getDescription());
-        result.setId(entity.getId());
+        result.setId(entity.getId().toHexString());
         result.setPrice(entity.getPrice());
 
         return result;

@@ -11,8 +11,11 @@
  */
 
 
-export interface ObjectId { 
-    timestamp?: number;
-    date?: string;
+export interface ItemDTO { 
+    id?: string;
+    price?: number;
+    description: string;
+    name: string;
+    quantity?: number;
 }
 

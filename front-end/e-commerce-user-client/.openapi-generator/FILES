@@ -13,9 +13,10 @@ encoder.ts
 git_push.sh
 index.ts
 model/addressDto.ts
+model/cartDto.ts
+model/itemDTO.ts
 model/link.ts
 model/models.ts
-model/objectId.ts
 model/userDto.ts
 param.ts
 variables.ts

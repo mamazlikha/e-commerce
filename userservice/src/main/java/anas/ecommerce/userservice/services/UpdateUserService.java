@@ -29,7 +29,7 @@ public class UpdateUserService implements IUpdateUserService {
 
         if(userEntityOptional.isPresent()){
             UserDto updatedUserDto = UserMapper.transformerToDto(userEntityOptional.get());
-            updatedUserDto.setId(id);
+            updatedUserDto.setId(id.toHexString());
             return UserMapper.transformerToDto(repository.save(UserMapper.transformerToEntity(updatedUserDto)));
         }
         else {

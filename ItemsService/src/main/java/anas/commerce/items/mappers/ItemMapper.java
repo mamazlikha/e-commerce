@@ -2,9 +2,11 @@ package anas.commerce.items.mappers;
 
 import anas.commerce.items.dtos.ItemDTO;
 import anas.commerce.items.entities.ItemEntity;
+import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ItemMapper {
 
@@ -13,7 +15,7 @@ public class ItemMapper {
 
         result.setDescription(dto.getDescription());
         result.setName(dto.getName());
-        result.setId(dto.getId());
+        result.setId(new ObjectId(dto.getId()));
         result.setPrice(dto.getPrice());
 
         return result;
@@ -24,19 +26,13 @@ public class ItemMapper {
 
         result.setDescription(entity.getDescription());
         result.setName(entity.getName());
-        result.setId(entity.getId());
+        result.setId(entity.getId().toHexString());
         result.setPrice(entity.getPrice());
 
         return result;
     }
     public static List<ItemDTO> transformerToDto(List<ItemEntity> entities){
-        List<ItemDTO> result = new ArrayList<>();
-        for (ItemEntity e: entities
-        ) {
-            result.add(transformerToDto(e));
-        }
-
-        return result;
+        return entities.stream().map(ItemMapper::transformerToDto).collect(Collectors.toList());
     }
 
 

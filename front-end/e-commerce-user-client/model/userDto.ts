@@ -9,17 +9,18 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ObjectId } from './objectId';
 import { AddressDto } from './addressDto';
+import { CartDto } from './cartDto';
 
 
 export interface UserDto { 
-    id?: ObjectId;
+    id?: string;
     firstname: string;
     lastname: string;
     birthdate: string;
     email: string;
     phoneNumber: string;
-    address: AddressDto;
+    userAddressDto: AddressDto;
+    userCartDto?: CartDto;
 }
 

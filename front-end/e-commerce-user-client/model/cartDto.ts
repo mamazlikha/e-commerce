@@ -9,10 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { ItemDTO } from './itemDTO';
 
 
-export interface ObjectId { 
-    timestamp?: number;
-    date?: string;
+export interface CartDto { 
+    id?: string;
+    itemsDto?: Set<ItemDTO>;
+    totalPrice?: number;
 }
 

@@ -17,7 +17,7 @@ public class ItemDTO {
 
 
     @Nullable
-    private ObjectId id;
+    private String id;
 
     @NonNull
     private double price;

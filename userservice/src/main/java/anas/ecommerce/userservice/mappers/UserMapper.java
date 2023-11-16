@@ -2,9 +2,11 @@ package anas.ecommerce.userservice.mappers;
 
 import anas.ecommerce.userservice.dtos.UserDto;
 import anas.ecommerce.userservice.entities.UserEntity;
+import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserMapper {
 
@@ -17,7 +19,7 @@ public class UserMapper {
                 CartMapper.transformerToEntity(dto.getUserCartDto()),
                 AddressMapper.transformerToEntity(dto.getUserAddressDto()));
         if(dto.getId() != null){
-            result.setId(dto.getId());
+            result.setId(new ObjectId(dto.getId()));
         }
         return result;
     }
@@ -31,17 +33,16 @@ public class UserMapper {
                 AddressMapper.transformerToDto(entity.getAddress()));
         result.setUserCartDto(CartMapper.transformerToDto(entity.getUserCart()));
         if(entity.getId() != null){
-            result.setId(entity.getId());
+            result.setId(entity.getId().toHexString());
         }
         return result;
     }
 
     public static List<UserDto> transformerToDto(List<UserEntity> entities){
-        List<UserDto> result = new ArrayList<>();
+        return entities.stream()
+                .map(UserMapper::transformerToDto)
+                .collect(Collectors.toList());
 
-        entities.stream().map(x -> result.add(transformerToDto(x)));
-
-        return result;
     }
 
 }
