@@ -3,7 +3,6 @@ package anas.ecommerce.userservice.services;
 import anas.ecommerce.userservice.contracts.IRegisterNewUserService;
 import anas.ecommerce.userservice.contracts.repositories.IUserRepository;
 import anas.ecommerce.userservice.dtos.CartDto;
-import anas.ecommerce.userservice.dtos.ItemDTO;
 import anas.ecommerce.userservice.dtos.UserDto;
 import anas.ecommerce.userservice.entities.UserEntity;
 import anas.ecommerce.userservice.exceptions.UserAlreadyExistException;
@@ -12,7 +11,6 @@ import anas.ecommerce.userservice.mappers.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 

@@ -1,6 +1,9 @@
 package anas.ecommerce.userservice.middlewares;
 
 
+import lombok.Getter;
+
+@Getter
 public class ErrorResponse {
     private final String message;
 
@@ -8,7 +11,4 @@ public class ErrorResponse {
         this.message = message;
     }
 
-    public String getMessage() {
-        return message;
-    }
 }

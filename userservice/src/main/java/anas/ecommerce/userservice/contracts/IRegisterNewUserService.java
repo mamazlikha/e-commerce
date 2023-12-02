@@ -6,7 +6,8 @@ public interface IRegisterNewUserService {
 
 
     /**
-     *
+     * Adds a new user
+     * @param userDto user's required information
      * */
     UserDto registerUser(UserDto userDto);
 }

@@ -30,11 +30,11 @@ public class DeleteUserController {
             deleteUserService.deleteUser(new ObjectId(id));
             return new ResponseEntity<>("User with id " + id + " has been successfully deleted !", HttpStatus.NO_CONTENT);
         }
-        catch (RuntimeException ex){
-            if(ex instanceof UserNotFoundException userNotFoundException){
-                return new ResponseEntity<>(new ErrorResponse("User not found: " + userNotFoundException.getUserId()), HttpStatus.NOT_FOUND);
-            }
-            throw (ex);
+        catch (UserNotFoundException ex){
+            return new ResponseEntity<>(new ErrorResponse("User not found: " + id), HttpStatus.NOT_FOUND);
+        }
+        catch (RuntimeException ex) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         finally {
             logger.log(Level.ALL, "deleteUser ended !");

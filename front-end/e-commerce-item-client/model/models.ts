@@ -1,2 +1,2 @@
-export * from './itemDTO';
+export * from './productDTO';
 export * from './link';

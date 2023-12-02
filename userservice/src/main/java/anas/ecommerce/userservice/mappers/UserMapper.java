@@ -4,7 +4,6 @@ import anas.ecommerce.userservice.dtos.UserDto;
 import anas.ecommerce.userservice.entities.UserEntity;
 import org.bson.types.ObjectId;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

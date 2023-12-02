@@ -10,7 +10,7 @@ public class CartMapper {
         CartEntity result = new CartEntity();
 
         result.setId(new ObjectId(dto.getId()));
-        result.setItems(ItemMapper.transformerToEntity(dto.getItemsDto()));
+        result.setItems(ItemsMapper.transformerToEntity(dto.getItemsDto()));
         result.setTotalPrice(dto.getTotalPrice());
 
         return result;
@@ -20,7 +20,7 @@ public class CartMapper {
         CartDto result = new CartDto();
 
         result.setId(entity.getId().toHexString());
-        result.setItemsDto(ItemMapper.transformerToDto(entity.getItems()));
+        result.setItemsDto(ItemsMapper.transformerToDto(entity.getItems()));
         result.setTotalPrice(entity.getTotalPrice());
 
         return result;

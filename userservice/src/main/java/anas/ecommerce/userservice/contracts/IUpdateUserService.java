@@ -8,7 +8,10 @@ import org.bson.types.ObjectId;
 public interface IUpdateUserService {
 
     /**
-     *
+     * Updates a user by id with new information
+     * @param userDto New information to add
+     * @param userId user's id
+     * @return UserDto
      * */
-    UserDto updateUserById(UserDto userDto, ObjectId objectId) throws UserNotFoundException;
+    UserDto updateUserById(UserDto userDto, ObjectId userId) throws UserNotFoundException;
 }

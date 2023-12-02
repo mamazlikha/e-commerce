@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -43,14 +44,14 @@ public class AddItemToCartService implements IAddItemToCartService {
             var response = restTemplate.getForEntity(itemServiceUrl+"/items/"+itemId, ItemDTO.class); /// TODO replace with a client !
             if (response.getStatusCode() == HttpStatus.OK) {
 
-                cart.getItems().add(ItemMapper.transformerToEntity(response.getBody()));
+                cart.getItems().add(ItemMapper.transformerToEntity(Objects.requireNonNull(response.getBody())));
 
                 return CartMapper.transformerToDto(repository.save(cart));
             }
-
             throw new Exception("ItemService is down !");
         }
-
-        throw new RuntimeException("Invalid cart ID : " + cartId);
+        else {
+            throw new RuntimeException("Invalid cart ID : " + cartId);
+        }
     }
 }

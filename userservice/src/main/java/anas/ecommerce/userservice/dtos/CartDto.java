@@ -15,7 +15,7 @@ public class CartDto {
     private String id;
 
     @NonNull
-    private Set<ItemDTO> itemsDto;
+    private Set<ItemDto> itemsDto;
 
     @NonNull
     private double totalPrice;
