@@ -20,10 +20,10 @@ public class GetProductByIdController {
     public IGetProductByIdService getItemByIdService;
 
     @GetMapping("products/{id}")
-    public ProductDTO getItemById(@PathVariable("id") String strId){
+    public ProductDTO getProductById(@PathVariable("id") String strId){
         ObjectId id = new ObjectId(strId);
         try {
-            return getItemByIdService.getItemById(id);
+            return getItemByIdService.getProductById(id);
         } catch (ProductNotFoundException e) {
             throw new RuntimeException(e);
         }

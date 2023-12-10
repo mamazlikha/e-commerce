@@ -9,6 +9,6 @@ public interface IGetCartByUSerIdService {
      * @param userId user's id
      * @return CartDto by it's user's id
      * */
-    CartDto getCartByUserId(ObjectId userId) throws Exception;
+    CartDto getCartByUserId(ObjectId userId) throws RuntimeException;
 
 }

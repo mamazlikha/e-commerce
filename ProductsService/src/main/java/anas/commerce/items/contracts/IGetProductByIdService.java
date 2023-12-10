@@ -11,6 +11,6 @@ public interface IGetProductByIdService {
      * @param id item's id
      * @return ItemDto by id
      * */
-    ProductDTO getItemById(ObjectId id) throws ProductNotFoundException;
+    ProductDTO getProductById(ObjectId id) throws ProductNotFoundException;
 
 }

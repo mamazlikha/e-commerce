@@ -4,6 +4,7 @@ import anas.commerce.cartservice.contracts.repositories.ICartRepository;
 import anas.commerce.cartservice.contracts.IGetCartByUSerIdService;
 import anas.commerce.cartservice.dtos.CartDto;
 import anas.commerce.cartservice.entities.CartEntity;
+import anas.commerce.cartservice.exceptions.CartNotFoundException;
 import anas.commerce.cartservice.mappers.CartMapper;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,13 @@ public class GetCartByUSerIdService implements IGetCartByUSerIdService {
 
 
     @Override
-    public CartDto getCartByUserId(ObjectId id) throws Exception {
+    public CartDto getCartByUserId(ObjectId id) throws RuntimeException {
         Optional<CartEntity> cartOpt = repository.findById(id);
         if(cartOpt.isPresent()) {
             return CartMapper.transformerToDto(cartOpt.get());
         }
 
-        throw new RuntimeException("Invalid cart ID : " + id);
+        throw new CartNotFoundException("Invalid cart ID : " + id);
     }
 
 }

@@ -1,7 +1,8 @@
 package anas.commerce.cartservice.controllers;
 
+import anas.commerce.cartservice.contracts.IGetCartByUSerIdService;
 import anas.commerce.cartservice.dtos.CartDto;
-import anas.commerce.cartservice.services.GetCartByUSerIdService;
+import anas.commerce.cartservice.exceptions.CartNotFoundException;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,16 +18,15 @@ public class GetCartByUSerIdController {
 
     private final Logger logger = Logger.getLogger(GetCartByUSerIdController.class.getName());
     @Autowired
-    private GetCartByUSerIdService getCartByUserIdService;
+    private IGetCartByUSerIdService getCartByUserIdService;
 
     @GetMapping("carts/getcartby/{id}")
     public ResponseEntity<CartDto> getCartById(@PathVariable("id") String cartId){
-        ObjectId cartIdParameter = new ObjectId(cartId);
         try {
-            return new ResponseEntity<>(getCartByUserIdService.getCartByUserId(cartIdParameter), HttpStatus.OK);
+            return new ResponseEntity<>(getCartByUserIdService.getCartByUserId(new ObjectId(cartId)), HttpStatus.OK);
         }
-        catch (Exception e) {
-            throw new RuntimeException(e);
+        catch (CartNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 

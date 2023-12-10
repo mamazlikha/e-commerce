@@ -14,7 +14,7 @@ git_push.sh
 index.ts
 model/addressDto.ts
 model/cartDto.ts
-model/productDTO.ts
+model/itemDto.ts
 model/link.ts
 model/models.ts
 model/userDto.ts

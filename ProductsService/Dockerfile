@@ -14,7 +14,7 @@ RUN apt-get update
 RUN apt-get install wait-for-it
 
 # copy only the artifacts we need from the first stage and discard the rest
-COPY --from=MAVEN_BUILD ./target/items-0.0.1-SNAPSHOT.jar ./productsservice.jar
+COPY --from=MAVEN_BUILD ./target/productsservice-0.0.1-SNAPSHOT.jar ./productsservice.jar
 
 COPY start.sh start.sh
 RUN chmod +x start.sh

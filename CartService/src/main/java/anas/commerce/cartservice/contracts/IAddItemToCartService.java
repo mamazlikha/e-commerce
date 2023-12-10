@@ -12,6 +12,6 @@ public interface IAddItemToCartService {
      * @param itemId item's id to add to that cart
      * @return CartDto
      * */
-    CartDto addItem(ObjectId cartId, String itemId) throws Exception;
+    CartDto addItem(ObjectId cartId, String itemId) throws RuntimeException;
 
 }

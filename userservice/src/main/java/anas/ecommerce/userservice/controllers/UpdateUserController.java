@@ -24,18 +24,16 @@ public class UpdateUserController {
     private IUpdateUserService updateUserService;
 
 
-    @ExceptionHandler(UserNotFoundException.class)
+    @ExceptionHandler(RuntimeException.class)
     @PutMapping("users/update-user/{id}")
-    public ResponseEntity<Object> updateUser(@RequestBody @Validated UserDto userDto, @PathVariable("id") String id){
+    public ResponseEntity<UserDto> updateUser(@RequestBody @Validated UserDto userDto, @PathVariable("id") String id) {
         try {
             return new ResponseEntity<>(updateUserService.updateUserById(userDto, new ObjectId(id)), HttpStatus.OK);
+        } catch (UserNotFoundException ex) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (RuntimeException ex) {
-            if(ex instanceof UserNotFoundException userNotFoundException){
-                return new ResponseEntity<>(new ErrorResponse("User not found: " + userNotFoundException.getUserId()), HttpStatus.NOT_FOUND);
-            }
-            throw (ex);
-        }
-        finally {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        } finally {
             logger.log(Level.ALL, "updateUser ended !");
         }
     }

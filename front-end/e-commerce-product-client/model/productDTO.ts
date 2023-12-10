@@ -11,8 +11,9 @@
  */
 
 
-export interface ItemDTO { 
+export interface ProductDTO { 
     id?: string;
+    supplierNumber: string;
     price: number;
     name: string;
     description: string;

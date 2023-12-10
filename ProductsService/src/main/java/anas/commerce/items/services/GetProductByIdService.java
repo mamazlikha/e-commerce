@@ -23,7 +23,7 @@ public class GetProductByIdService implements IGetProductByIdService {
     private IProductsRepository itemsRepository;
 
     @Override
-    public ProductDTO getItemById(ObjectId id) throws ProductNotFoundException {
+    public ProductDTO getProductById(ObjectId id) throws ProductNotFoundException {
         Optional<ProductEntity> itemOpt = itemsRepository.findById(id);
 
         if(itemOpt.isPresent()){

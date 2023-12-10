@@ -3,7 +3,6 @@ package anas.commerce.items.controllers;
 import anas.commerce.items.contracts.IEditProductService;
 import anas.commerce.items.dtos.ProductDTO;
 import anas.commerce.items.exceptions.ProductNotFoundException;
-import anas.commerce.items.middlewares.ErrorResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -2,8 +2,8 @@
 
 set -e
 
-cd ItemsService
+cd ProductsService
 
 mvn test
 
-docker build -t itemservice .
+docker build -t productservice .

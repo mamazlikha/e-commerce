@@ -1,3 +1,3 @@
 export * from './cartDto';
-export * from './productDTO';
+export * from './itemDTO';
 export * from './link';

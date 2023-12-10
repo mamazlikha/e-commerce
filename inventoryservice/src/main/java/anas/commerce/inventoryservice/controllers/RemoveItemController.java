@@ -25,7 +25,7 @@ public class RemoveItemController {
     @DeleteMapping("items/delete/{product-id}/{item-id}")
     private ResponseEntity<Integer> removeItem(@PathVariable("product-id") String productId, @PathVariable ("item-id") String itemId){
         try {
-            return new ResponseEntity<>(removeItemService.decreaseProductQuantity(new ObjectId(productId), new ObjectId(itemId)), HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(removeItemService.decreaseProductQuantity(new ObjectId(productId), new ObjectId(itemId)), HttpStatus.OK);
         }
         catch (ItemNotFoundException ex){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

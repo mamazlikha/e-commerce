@@ -5,6 +5,7 @@ import anas.commerce.cartservice.contracts.repositories.ICartRepository;
 import anas.commerce.cartservice.dtos.CartDto;
 import anas.commerce.cartservice.dtos.ItemDTO;
 import anas.commerce.cartservice.entities.CartEntity;
+import anas.commerce.cartservice.exceptions.ProductServiceIsInvalidException;
 import anas.commerce.cartservice.mappers.CartMapper;
 import anas.commerce.cartservice.mappers.ItemMapper;
 import org.bson.types.ObjectId;
@@ -37,7 +38,7 @@ public class AddItemToCartService implements IAddItemToCartService {
         restTemplate = builder.build();
     }
 
-    public CartDto addItem(ObjectId cartId, String itemId) throws Exception {
+    public CartDto addItem(ObjectId cartId, String itemId) throws RuntimeException {
         Optional<CartEntity> cartOpt = repository.findById(cartId);
         if(cartOpt.isPresent()) {
             CartEntity cart = cartOpt.get();
@@ -48,7 +49,7 @@ public class AddItemToCartService implements IAddItemToCartService {
 
                 return CartMapper.transformerToDto(repository.save(cart));
             }
-            throw new Exception("ItemService is down !");
+            throw new ProductServiceIsInvalidException("ItemService is down !");
         }
         else {
             throw new RuntimeException("Invalid cart ID : " + cartId);

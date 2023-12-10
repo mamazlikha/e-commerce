@@ -1,6 +1,6 @@
 package anas.commerce.cartservice.controllers;
 
-import anas.commerce.cartservice.services.RemoveItemFromCartService;
+import anas.commerce.cartservice.contracts.IRemoveItemFromCartService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ public class RemoveItemFromCartController {
     private final Logger logger = Logger.getLogger(RemoveItemFromCartController.class.getName());
 
     @Autowired
-    private RemoveItemFromCartService removeItemFromCartService;
+    private IRemoveItemFromCartService removeItemFromCartService;
 
 
     @DeleteMapping("carts/deleteitem/{cartid}/{itemid}")

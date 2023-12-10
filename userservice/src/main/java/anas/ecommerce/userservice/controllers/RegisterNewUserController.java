@@ -23,24 +23,16 @@ public class RegisterNewUserController {
     @Autowired
     private IRegisterNewUserService registerNewUserService;
 
-    @ExceptionHandler(UserAlreadyExistException.class)
+    @ExceptionHandler(RuntimeException.class)
     @PostMapping("users/register-user")
-    public ResponseEntity<Object> registerUser(@RequestBody @Validated UserDto userDto) {
+    public ResponseEntity<UserDto> registerUser(@RequestBody @Validated UserDto userDto) {
         try {
             return new ResponseEntity<>(registerNewUserService.registerUser(userDto), HttpStatus.CREATED);
-        }
-        catch (RuntimeException ex){
-            if(ex instanceof UserAlreadyExistException userAlreadyExistException){
-                return new ResponseEntity<>(
-                        new ErrorResponse("User already exist with that email: " + userAlreadyExistException.getEmail() + " and that phoneNumber: " + userAlreadyExistException.getPhoneNumber()),
-                        HttpStatus.CONFLICT);
-            }
-            if(ex instanceof UserNotCreatedException userNotCreatedException){
-                return new ResponseEntity<>(new ErrorResponse("The user couldn't be created !"), HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-            throw (ex);
-        }
-        finally {
+        } catch (UserAlreadyExistException ex) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        } catch (RuntimeException ex) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        } finally {
             logger.log(Level.ALL, "registerUser ended !");
         }
     }
