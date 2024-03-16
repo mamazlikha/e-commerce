@@ -1,6 +1,6 @@
 package anas.ecommerce.userservice.contracts;
 
-import anas.ecommerce.userservice.dtos.UserDto;
+import anas.ecommerce.userservice.dtos.userdto.UserDto;
 
 import java.util.List;
 

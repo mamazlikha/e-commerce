@@ -2,6 +2,7 @@ package anas.commerce.items.services;
 
 import anas.commerce.items.contracts.IEditProductService;
 import anas.commerce.items.contracts.repositories.IProductsRepository;
+import anas.commerce.items.dtos.EditProductDto;
 import anas.commerce.items.dtos.ProductDTO;
 import anas.commerce.items.entities.ProductEntity;
 import anas.commerce.items.exceptions.ProductNotFoundException;
@@ -24,14 +25,14 @@ public class EditProductService implements IEditProductService {
 
 
     @Override
-    public ProductDTO editProduct(ProductDTO newProductDto) throws RuntimeException {
+    public EditProductDto editProduct(EditProductDto newProductDto) throws RuntimeException {
         Optional<ProductEntity> productEntityOptional = repository.findById(new ObjectId(newProductDto.getId()));
 
         ProductEntity productEntityToUpdate = productEntityOptional.orElseThrow(() -> new ProductNotFoundException("Invalid id: " + newProductDto.getId()));
 
         ProductEntity newProductEntity = ProductsMapper.transformerToEntity(newProductDto);
         productEntityToUpdate.setDescription(newProductEntity.getDescription());
-        productEntityToUpdate.setSupplierNumber(newProductEntity.getSupplierNumber());
+        productEntityToUpdate.setSupplierProductNumber(newProductEntity.getSupplierProductNumber());
         productEntityToUpdate.setPrice(newProductEntity.getPrice());
         productEntityToUpdate.setName(newProductEntity.getName());
 

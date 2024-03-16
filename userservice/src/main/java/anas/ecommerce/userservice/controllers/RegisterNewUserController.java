@@ -1,10 +1,9 @@
 package anas.ecommerce.userservice.controllers;
 
 import anas.ecommerce.userservice.contracts.IRegisterNewUserService;
-import anas.ecommerce.userservice.dtos.UserDto;
+import anas.ecommerce.userservice.dtos.userdto.CreateUserDto;
+import anas.ecommerce.userservice.dtos.userdto.UserDto;
 import anas.ecommerce.userservice.exceptions.UserAlreadyExistException;
-import anas.ecommerce.userservice.exceptions.UserNotCreatedException;
-import anas.ecommerce.userservice.middlewares.ErrorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +24,10 @@ public class RegisterNewUserController {
 
     @ExceptionHandler(RuntimeException.class)
     @PostMapping("users/register-user")
-    public ResponseEntity<UserDto> registerUser(@RequestBody @Validated UserDto userDto) {
+    public ResponseEntity<CreateUserDto> registerUser(@RequestBody @Validated CreateUserDto createUserDto) {
+        logger.log(Level.ALL, "Adding new user ...");
         try {
-            return new ResponseEntity<>(registerNewUserService.registerUser(userDto), HttpStatus.CREATED);
+            return new ResponseEntity<>(registerNewUserService.registerUser(createUserDto), HttpStatus.CREATED);
         } catch (UserAlreadyExistException ex) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         } catch (RuntimeException ex) {

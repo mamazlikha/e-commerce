@@ -1,9 +1,10 @@
 package anas.ecommerce.userservice.controllers;
 
 import anas.ecommerce.userservice.contracts.IUpdateUserService;
-import anas.ecommerce.userservice.dtos.UserDto;
+import anas.ecommerce.userservice.dtos.userdto.EditUserDto;
+import anas.ecommerce.userservice.dtos.userdto.UserDto;
 import anas.ecommerce.userservice.exceptions.UserNotFoundException;
-import anas.ecommerce.userservice.middlewares.ErrorResponse;
+import anas.ecommerce.userservice.mappers.EditUserMapper;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,9 +27,9 @@ public class UpdateUserController {
 
     @ExceptionHandler(RuntimeException.class)
     @PutMapping("users/update-user/{id}")
-    public ResponseEntity<UserDto> updateUser(@RequestBody @Validated UserDto userDto, @PathVariable("id") String id) {
+    public ResponseEntity<UserDto> updateUser(@RequestBody @Validated EditUserDto editUserDto, @PathVariable("id") String id) {
         try {
-            return new ResponseEntity<>(updateUserService.updateUserById(userDto, new ObjectId(id)), HttpStatus.OK);
+            return new ResponseEntity<>(updateUserService.updateUserById(editUserDto, new ObjectId(id)), HttpStatus.OK);
         } catch (UserNotFoundException ex) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (RuntimeException ex) {

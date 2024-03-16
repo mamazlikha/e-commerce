@@ -2,7 +2,7 @@ package anas.ecommerce.userservice.services;
 
 import anas.ecommerce.userservice.contracts.IGetUserByIdService;
 import anas.ecommerce.userservice.contracts.repositories.IUserRepository;
-import anas.ecommerce.userservice.dtos.UserDto;
+import anas.ecommerce.userservice.dtos.userdto.UserDto;
 import anas.ecommerce.userservice.exceptions.UserNotFoundException;
 import anas.ecommerce.userservice.mappers.UserMapper;
 import org.bson.types.ObjectId;

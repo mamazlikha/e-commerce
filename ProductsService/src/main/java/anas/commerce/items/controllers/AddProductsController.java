@@ -1,9 +1,12 @@
 package anas.commerce.items.controllers;
 
 import anas.commerce.items.contracts.IAddNewProductService;
+import anas.commerce.items.dtos.CreateProductDto;
 import anas.commerce.items.dtos.ProductDTO;
+import anas.commerce.items.exceptions.ProductAlreadyExistException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +22,13 @@ public class AddProductsController {
 
 
     @PostMapping("products/add")
-    public ResponseEntity<ProductDTO> addItem(@RequestBody @Valid ProductDTO productDTO) {
-        return ResponseEntity.ok(this.addItemService.addNewProduct(productDTO));
+    public ResponseEntity<ProductDTO> addNewProduct(@RequestBody @Valid CreateProductDto createProductDTO) {
+        try {
+            return new ResponseEntity<>(this.addItemService.addNewProduct(createProductDTO), HttpStatus.CREATED);
+
+        }catch (ProductAlreadyExistException ex){
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
     }
 
 }

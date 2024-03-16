@@ -1,5 +1,7 @@
 package anas.commerce.items.mappers;
 
+import anas.commerce.items.dtos.CreateProductDto;
+import anas.commerce.items.dtos.EditProductDto;
 import anas.commerce.items.dtos.ProductDTO;
 import anas.commerce.items.entities.ProductEntity;
 import org.bson.types.ObjectId;
@@ -9,25 +11,36 @@ import java.util.stream.Collectors;
 
 public class ProductsMapper {
 
-    public static ProductEntity transformerToEntity(ProductDTO dto){
+    public static ProductEntity transformerToEntity(CreateProductDto dto){
         ProductEntity result = new ProductEntity();
 
         result.setDescription(dto.getDescription());
         result.setName(dto.getName());
-        result.setId(new ObjectId(dto.getId()));
-        result.setSupplierNumber(dto.getSupplierNumber());
+        result.setSupplierProductNumber(dto.getSupplierProductNumber());
         result.setPrice(dto.getPrice());
 
         return result;
     }
 
-    public static ProductDTO transformerToDto(ProductEntity entity){
-        ProductDTO result = new ProductDTO();
+    public static ProductEntity transformerToEntity(EditProductDto dto){
+        ProductEntity result = new ProductEntity();
+
+        result.setDescription(dto.getDescription());
+        result.setId(new ObjectId(dto.getId()));
+        result.setName(dto.getName());
+        result.setSupplierProductNumber(dto.getSupplierProductNumber());
+        result.setPrice(dto.getPrice());
+
+        return result;
+    }
+
+    public static EditProductDto transformerToDto(ProductEntity entity){
+        EditProductDto result = new EditProductDto();
 
         result.setDescription(entity.getDescription());
         result.setName(entity.getName());
-        result.setSupplierNumber(entity.getSupplierNumber());
         result.setId(entity.getId().toHexString());
+        result.setSupplierProductNumber(entity.getSupplierProductNumber());
         result.setPrice(entity.getPrice());
 
         return result;

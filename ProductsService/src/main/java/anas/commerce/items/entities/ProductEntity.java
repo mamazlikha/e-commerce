@@ -23,7 +23,7 @@ public class ProductEntity {
     private ObjectId id;
 
     @NonNull
-    private String supplierNumber;
+    private String supplierProductNumber;
 
     @NonNull
     private String description;

@@ -1,6 +1,8 @@
 package anas.commerce.items.controllers;
 
 import anas.commerce.items.contracts.IEditProductService;
+import anas.commerce.items.dtos.CreateProductDto;
+import anas.commerce.items.dtos.EditProductDto;
 import anas.commerce.items.dtos.ProductDTO;
 import anas.commerce.items.exceptions.ProductNotFoundException;
 import jakarta.validation.Valid;
@@ -23,7 +25,7 @@ public class EditProductController {
     private IEditProductService editProductService;
 
     @PutMapping("products/edit")
-    public ResponseEntity<ProductDTO> updateProduct(@RequestBody @Valid ProductDTO newProductDtp) {
+    public ResponseEntity<ProductDTO> updateProduct(@RequestBody @Valid EditProductDto newProductDtp) {
         try {
             return new ResponseEntity<>(editProductService.editProduct(newProductDtp), HttpStatus.OK);
         } catch (ProductNotFoundException ex) {

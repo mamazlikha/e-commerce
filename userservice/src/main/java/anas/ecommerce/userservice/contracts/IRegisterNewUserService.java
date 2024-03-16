@@ -1,13 +1,15 @@
 package anas.ecommerce.userservice.contracts;
 
-import anas.ecommerce.userservice.dtos.UserDto;
+import anas.ecommerce.userservice.dtos.userdto.CreateUserDto;
+import anas.ecommerce.userservice.dtos.userdto.UserDto;
+import anas.ecommerce.userservice.mappers.CreateUserMapper;
 
 public interface IRegisterNewUserService {
 
 
     /**
      * Adds a new user
-     * @param userDto user's required information
+     * @param createUserDto user's required information
      * */
-    UserDto registerUser(UserDto userDto);
+    CreateUserDto registerUser(CreateUserDto createUserDto);
 }

@@ -3,8 +3,8 @@ package anas.ecommerce.userservice;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class UserServiceApplicationTests {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+public class UserServiceApplicationTests {
 
 	@Test
 	void contextLoads() {

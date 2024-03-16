@@ -1,7 +1,7 @@
 package anas.ecommerce.userservice.controllers;
 
 import anas.ecommerce.userservice.contracts.IGetAllUsersService;
-import anas.ecommerce.userservice.dtos.UserDto;
+import anas.ecommerce.userservice.dtos.userdto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

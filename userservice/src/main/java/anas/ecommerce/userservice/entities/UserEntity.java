@@ -40,7 +40,6 @@ public class UserEntity {
     @NonNull
     private String phoneNumber;
 
-    @NonNull
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private CartEntity userCart;
 

@@ -16,7 +16,6 @@ import java.util.logging.Logger;
 @Service
 public class GetProductByIdService implements IGetProductByIdService {
 
-
     private final Logger logger = Logger.getLogger(GetProductByIdService.class.getName());
 
     @Autowired

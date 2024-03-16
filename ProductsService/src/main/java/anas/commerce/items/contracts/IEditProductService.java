@@ -1,8 +1,11 @@
 package anas.commerce.items.contracts;
 
-import anas.commerce.items.dtos.ProductDTO;
+import anas.commerce.items.dtos.EditProductDto;
 
 public interface IEditProductService {
 
-    ProductDTO editProduct(ProductDTO newProductDto) throws RuntimeException;
+    /**
+     *
+     * */
+    EditProductDto editProduct(EditProductDto newProductDto) throws RuntimeException;
 }

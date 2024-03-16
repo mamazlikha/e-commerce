@@ -1,9 +1,8 @@
 package anas.ecommerce.userservice.controllers;
 
 import anas.ecommerce.userservice.contracts.IGetUserByIdService;
-import anas.ecommerce.userservice.dtos.UserDto;
+import anas.ecommerce.userservice.dtos.userdto.UserDto;
 import anas.ecommerce.userservice.exceptions.UserNotFoundException;
-import anas.ecommerce.userservice.middlewares.ErrorResponse;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
