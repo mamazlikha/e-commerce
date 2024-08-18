@@ -1,14 +1,22 @@
 package anas.ecommerce.userservice.integration.cucumber.stepdef;
 
-import anas.ecommerce.userservice.UserServiceApplicationTests;
 import anas.ecommerce.userservice.contracts.repositories.IUserRepository;
 import anas.ecommerce.userservice.dtos.AddressDto;
 import anas.ecommerce.userservice.dtos.userdto.CreateUserDto;
+import anas.ecommerce.userservice.entities.UserEntity;
 import io.cucumber.datatable.DataTable;
+import io.cucumber.java.Before;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.bson.types.ObjectId;
 import org.junit.Assert;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.api.CreateCartForUserControllerApi;
+import org.openapitools.client.model.CartDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpHeaders;
@@ -18,6 +26,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
+
+import static org.mockito.Mockito.when;
 
 public class CreateNewUserStepDef {
 
@@ -31,14 +42,23 @@ public class CreateNewUserStepDef {
     @Autowired
     private IUserRepository userRepository;
 
+    @Mock
+    private CreateCartForUserControllerApi createCartForUserControllerApiMock;
     @Autowired
     public CreateNewUserStepDef(RestTemplateBuilder builder) {
         restTemplate = builder.build();
     }
 
+    @Before
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+    }
+
     @Given("Empty database")
-    public void emptyDatabase() {
+    public void emptyDatabase() throws ApiException {
+        userRepository.deleteAll();
         Assert.assertEquals(0, userRepository.findAll().size());
+        when(createCartForUserControllerApiMock.createCartForUser()).thenReturn(new CartDto());
     }
 
     @Given("This user information")
@@ -54,6 +74,7 @@ public class CreateNewUserStepDef {
         switch (method) {
             case "POST":
                 response = restTemplate.postForEntity(buildUrl, userDto, CreateUserDto.class);
+                break;
             default:
                 throw new Exception("Method not supported to perform an integration test");
         }
@@ -62,6 +83,19 @@ public class CreateNewUserStepDef {
     @Then("the client receives status code of {int}")
     public void theClientReceivesStatusCodeOf(int statusCode) {
         Assert.assertEquals(HttpStatusCode.valueOf(statusCode), response.getStatusCode());
-        String actual = response.getHeaders().get(HttpHeaders.LOCATION).get(0);
+    }
+
+    @And("the client is in the database")
+    public void theClientIsInTheDatabase() {
+        String id = response.getBody().getId();
+        Optional<UserEntity> addedUserOpt = userRepository.findById(new ObjectId(id));
+        Assert.assertTrue(addedUserOpt.isPresent());
+        UserEntity userEntity = addedUserOpt.get();
+        Assert.assertEquals(userDto.getEmail(), userEntity.getEmail());
+        Assert.assertEquals(userDto.getUserAddressDto().getCity(), userEntity.getAddress().getCity());
+        Assert.assertEquals(userDto.getUserAddressDto().getCountry(), userEntity.getAddress().getCountry());
+        Assert.assertEquals(userDto.getUserAddressDto().getStreetName(), userEntity.getAddress().getStreetName());
+        Assert.assertEquals(userDto.getFirstname(), userEntity.getFirstname());
+        Assert.assertEquals(userDto.getLastname(), userEntity.getLastname());
     }
 }

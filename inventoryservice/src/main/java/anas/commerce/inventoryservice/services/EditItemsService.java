@@ -5,8 +5,8 @@ import anas.commerce.inventoryservice.contracts.repositories.IItemsRepository;
 import anas.commerce.inventoryservice.dtos.ItemDto;
 import anas.commerce.inventoryservice.entities.ItemEntity;
 import anas.commerce.inventoryservice.exceptions.ItemNotFoundException;
-import anas.commerce.inventoryservice.mappers.ItemsMapper;
 import org.bson.types.ObjectId;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,16 +22,18 @@ public class EditItemsService implements IEditItemsService {
     private IItemsRepository repository;
 
 
+    @Autowired
+    private ModelMapper mapper;
     @Override
     public ItemDto editItem(ItemDto newItemDto) throws RuntimeException {
         Optional<ItemEntity> itemEntityOptional = repository.findById(new ObjectId(newItemDto.getId()));
 
         ItemEntity productEntityToUpdate = itemEntityOptional.orElseThrow(() -> new ItemNotFoundException("Invalid id: " + newItemDto.getId()));
-        ItemEntity newItemEntity = ItemsMapper.transformerToEntity(newItemDto);
+        ItemEntity newItemEntity = mapper.map(newItemDto, ItemEntity.class);
 
         productEntityToUpdate.setSupplierNumber(newItemEntity.getSupplierNumber());
         productEntityToUpdate.setProductEntityId(newItemEntity.getProductEntityId());
 
-        return ItemsMapper.transformerToDto(repository.save(productEntityToUpdate));
+        return mapper.map(repository.save(productEntityToUpdate), ItemDto.class);
     }
 }

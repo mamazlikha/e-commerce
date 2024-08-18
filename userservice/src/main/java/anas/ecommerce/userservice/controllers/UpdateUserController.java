@@ -4,7 +4,6 @@ import anas.ecommerce.userservice.contracts.IUpdateUserService;
 import anas.ecommerce.userservice.dtos.userdto.EditUserDto;
 import anas.ecommerce.userservice.dtos.userdto.UserDto;
 import anas.ecommerce.userservice.exceptions.UserNotFoundException;
-import anas.ecommerce.userservice.mappers.EditUserMapper;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

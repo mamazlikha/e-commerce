@@ -2,6 +2,7 @@ package anas.ecommerce.userservice.entities;
 
 import com.mongodb.lang.NonNull;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.bson.types.ObjectId;
@@ -18,6 +19,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @RequiredArgsConstructor
+@NoArgsConstructor
 @Document("user")
 public class UserEntity {
 

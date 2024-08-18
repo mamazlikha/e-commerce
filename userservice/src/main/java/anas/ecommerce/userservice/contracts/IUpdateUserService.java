@@ -1,9 +1,7 @@
 package anas.ecommerce.userservice.contracts;
 
 import anas.ecommerce.userservice.dtos.userdto.EditUserDto;
-import anas.ecommerce.userservice.dtos.userdto.UserDto;
 import anas.ecommerce.userservice.exceptions.UserNotFoundException;
-import anas.ecommerce.userservice.mappers.EditUserMapper;
 import org.bson.types.ObjectId;
 
 

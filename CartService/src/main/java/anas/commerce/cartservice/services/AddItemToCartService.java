@@ -6,8 +6,9 @@ import anas.commerce.cartservice.dtos.CartDto;
 import anas.commerce.cartservice.dtos.ItemDTO;
 import anas.commerce.cartservice.entities.CartEntity;
 import anas.commerce.cartservice.exceptions.ProductServiceIsInvalidException;
-import anas.commerce.cartservice.mappers.CartMapper;
-import anas.commerce.cartservice.mappers.ItemMapper;
+import anas.commerce.cartservice.mappers.ICartMapper;
+import anas.commerce.cartservice.mappers.IItemMapper;
+import lombok.AllArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +22,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 @Service
+@AllArgsConstructor
 public class AddItemToCartService implements IAddItemToCartService {
 
     private final Logger logger = Logger.getLogger(AddItemToCartService.class.getName());
@@ -30,12 +32,18 @@ public class AddItemToCartService implements IAddItemToCartService {
     @Autowired
     private ICartRepository repository;
 
+    private final ICartMapper cartMapper;
+
+    private final IItemMapper itemMapper;
+
     @Value("${itemservice.host}")
     private String itemServiceUrl;
 
     @Autowired
-    public AddItemToCartService(RestTemplateBuilder builder){
+    public AddItemToCartService(RestTemplateBuilder builder, IItemMapper itemMapper, ICartMapper cartMapper){
         restTemplate = builder.build();
+        this.itemMapper = itemMapper;
+        this.cartMapper = cartMapper;
     }
 
     public CartDto addItem(ObjectId cartId, String itemId) throws RuntimeException {
@@ -45,9 +53,9 @@ public class AddItemToCartService implements IAddItemToCartService {
             var response = restTemplate.getForEntity(itemServiceUrl+"/items/"+itemId, ItemDTO.class); /// TODO replace with a client !
             if (response.getStatusCode() == HttpStatus.OK) {
 
-                cart.getItems().add(ItemMapper.transformerToEntity(Objects.requireNonNull(response.getBody())));
+                cart.getItems().add(itemMapper.itemDtoToItemEntity(Objects.requireNonNull(response.getBody())));
 
-                return CartMapper.transformerToDto(repository.save(cart));
+                return cartMapper.cartEntityToCartDto(repository.save(cart));
             }
             throw new ProductServiceIsInvalidException("ItemService is down !");
         }

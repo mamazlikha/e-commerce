@@ -1,13 +1,11 @@
 package anas.ecommerce.userservice.dtos;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @RequiredArgsConstructor
+@NoArgsConstructor
 public class AddressDto {
 
     @NonNull

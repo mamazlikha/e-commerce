@@ -1,16 +1,13 @@
 package anas.commerce.cartservice.dtos;
 
-import com.mongodb.lang.NonNull;
 import com.mongodb.lang.Nullable;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import org.bson.types.ObjectId;
 
 
-@Getter
-@Setter
+@Data
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class ItemDTO {
@@ -18,14 +15,9 @@ public class ItemDTO {
     @Nullable
     private String id;
 
-    private double price;
+    @NonNull
+    private String productEntityId;
 
     @NonNull
-    private String description;
-
-
-    @NonNull
-    private String name;
-
-    private int quantity;
+    private String supplierNumber;
 }

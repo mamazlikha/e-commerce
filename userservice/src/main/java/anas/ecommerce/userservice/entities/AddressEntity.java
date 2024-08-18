@@ -1,14 +1,12 @@
 package anas.ecommerce.userservice.entities;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @Setter
 @RequiredArgsConstructor
+@NoArgsConstructor
 @Document("address")
 public class AddressEntity {
 

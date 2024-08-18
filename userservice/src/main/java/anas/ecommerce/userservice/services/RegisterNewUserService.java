@@ -2,29 +2,30 @@ package anas.ecommerce.userservice.services;
 
 import anas.ecommerce.userservice.contracts.IRegisterNewUserService;
 import anas.ecommerce.userservice.contracts.repositories.IUserRepository;
-import anas.ecommerce.userservice.dtos.CartDto;
 import anas.ecommerce.userservice.dtos.userdto.CreateUserDto;
 import anas.ecommerce.userservice.entities.UserEntity;
 import anas.ecommerce.userservice.exceptions.UserAlreadyExistException;
 import anas.ecommerce.userservice.exceptions.UserNotCreatedException;
-import anas.ecommerce.userservice.mappers.CreateUserMapper;
+import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.api.CreateCartForUserControllerApi;
+import org.openapitools.client.model.CartDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Profile;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
-import java.util.logging.Logger;
+import java.util.concurrent.CompletableFuture;
 
 @Service
+@Slf4j
 public class RegisterNewUserService implements IRegisterNewUserService {
 
-    private final Logger logger = Logger.getLogger(RegisterNewUserService.class.getName());
-
-    private final RestTemplate restTemplate;
-
-
+    private final ModelMapper mapper;
     @Value("${cartservice.host}")
     private String cartServiceUrl;
 
@@ -35,23 +36,36 @@ public class RegisterNewUserService implements IRegisterNewUserService {
     @Autowired
     private IUserRepository repository;
 
+    private CreateCartForUserControllerApi createCartForUserControllerApi;
+
     @Autowired
-    public RegisterNewUserService(RestTemplateBuilder builder){
-        restTemplate = builder.build();
+    public RegisterNewUserService(ModelMapper modelMapper){
+        mapper = modelMapper;
     }
 
-    public CreateUserDto registerUser(CreateUserDto createUserDto) {
+    @PostConstruct
+    @Profile("test")
+    public void afterInit(){
+        this.createCartForUserControllerApi = new CreateCartForUserControllerApi();
+        this.createCartForUserControllerApi.setCustomBaseUrl("http://"+cartServiceUrl+":"+cartServicePort);
+        log.info("this.createCartForUserControllerApi.getCustomBaseUrl() === "+ this.createCartForUserControllerApi.getCustomBaseUrl());
+    }
+
+    @Async
+    public CompletableFuture<CreateUserDto> registerUser(CreateUserDto createUserDto) {
         Optional<UserEntity> alreadyExist = repository.findByEmailOrPhoneNumber(createUserDto.getEmail(), createUserDto.getPhoneNumber());
         if(alreadyExist.isEmpty()){
-            var response = restTemplate.postForEntity("http://" + cartServiceUrl + ":" + cartServicePort +"/carts/createforuser/", "", CartDto.class); /// TODO replace with a client !
+            CartDto response;
 
-            if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
-                createUserDto.setUserCartDto(response.getBody());
-                return CreateUserMapper.transformerToDto(repository.save(CreateUserMapper.transformerToEntity(createUserDto)));
+            try {
+                response = createCartForUserControllerApi.createCartForUser();
+            } catch (ApiException e) {
+                throw new RuntimeException(e);
             }
-            else {
-                throw new UserNotCreatedException("Couldn't create user");
-            }
+            createUserDto.setUserCartDto(response);
+            CreateUserDto savedUser = mapper.map(repository.save(mapper.map(createUserDto, UserEntity.class)), CreateUserDto.class);
+            return CompletableFuture.completedFuture(mapper.map(savedUser, CreateUserDto.class));
+
         }
         throw new UserAlreadyExistException(createUserDto.getEmail(), createUserDto.getPhoneNumber());
     }

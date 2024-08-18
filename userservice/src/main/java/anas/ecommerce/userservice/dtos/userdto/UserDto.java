@@ -2,16 +2,16 @@ package anas.ecommerce.userservice.dtos.userdto;
 
 import anas.ecommerce.userservice.dtos.AddressDto;
 import com.mongodb.lang.NonNull;
-import jakarta.validation.constraints.Pattern;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.Email;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Getter
 @Setter
 @RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDto {
 
     private String id;
@@ -26,7 +26,7 @@ public class UserDto {
     private LocalDate birthdate;
 
     @NonNull
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "Invalid email format")
+    @Email
     private String email;
 
     @NonNull

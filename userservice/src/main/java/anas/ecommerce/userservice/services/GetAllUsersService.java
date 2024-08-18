@@ -3,10 +3,11 @@ package anas.ecommerce.userservice.services;
 import anas.ecommerce.userservice.contracts.IGetAllUsersService;
 import anas.ecommerce.userservice.contracts.repositories.IUserRepository;
 import anas.ecommerce.userservice.dtos.userdto.UserDto;
-import anas.ecommerce.userservice.mappers.UserMapper;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -19,9 +20,13 @@ public class GetAllUsersService implements IGetAllUsersService {
     @Autowired
     private IUserRepository repository;
 
+    @Autowired
+    private ModelMapper mapper;
 
     @Override
     public List<UserDto> getAllUsers() {
-        return UserMapper.transformerToDto(repository.findAll());
+        List<UserDto> result = new ArrayList<>();
+        repository.findAll().forEach(x -> result.add(mapper.map(x, UserDto.class)));
+        return result;
     }
 }

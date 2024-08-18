@@ -1,16 +1,20 @@
 package anas.ecommerce.userservice.dtos.userdto;
 
 import anas.ecommerce.userservice.dtos.AddressDto;
-import anas.ecommerce.userservice.dtos.CartDto;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.openapitools.client.model.CartDto;
 
 import java.time.LocalDate;
 
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class CreateUserDto extends UserDto {
 
     private CartDto userCartDto;

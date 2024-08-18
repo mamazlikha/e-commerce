@@ -10,8 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.OneToMany;
 import java.util.Set;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Document("cart")

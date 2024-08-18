@@ -1,8 +1,8 @@
 package anas.ecommerce.userservice.contracts;
 
 import anas.ecommerce.userservice.dtos.userdto.CreateUserDto;
-import anas.ecommerce.userservice.dtos.userdto.UserDto;
-import anas.ecommerce.userservice.mappers.CreateUserMapper;
+
+import java.util.concurrent.CompletableFuture;
 
 public interface IRegisterNewUserService {
 
@@ -11,5 +11,5 @@ public interface IRegisterNewUserService {
      * Adds a new user
      * @param createUserDto user's required information
      * */
-    CreateUserDto registerUser(CreateUserDto createUserDto);
+    CompletableFuture<CreateUserDto> registerUser(CreateUserDto createUserDto);
 }

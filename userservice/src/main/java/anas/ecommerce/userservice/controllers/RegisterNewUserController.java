@@ -2,22 +2,20 @@ package anas.ecommerce.userservice.controllers;
 
 import anas.ecommerce.userservice.contracts.IRegisterNewUserService;
 import anas.ecommerce.userservice.dtos.userdto.CreateUserDto;
-import anas.ecommerce.userservice.dtos.userdto.UserDto;
 import anas.ecommerce.userservice.exceptions.UserAlreadyExistException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.ExecutionException;
 
 @ControllerAdvice
 @RestController
+@Slf4j
 public class RegisterNewUserController {
-
-    private final Logger logger = Logger.getLogger(RegisterNewUserController.class.getName());
 
     @Autowired
     private IRegisterNewUserService registerNewUserService;
@@ -25,15 +23,19 @@ public class RegisterNewUserController {
     @ExceptionHandler(RuntimeException.class)
     @PostMapping("users/register-user")
     public ResponseEntity<CreateUserDto> registerUser(@RequestBody @Validated CreateUserDto createUserDto) {
-        logger.log(Level.ALL, "Adding new user ...");
+        log.info("Adding new user ...");
         try {
-            return new ResponseEntity<>(registerNewUserService.registerUser(createUserDto), HttpStatus.CREATED);
+            return new ResponseEntity<>(registerNewUserService.registerUser(createUserDto).get(), HttpStatus.CREATED);
         } catch (UserAlreadyExistException ex) {
+            log.error("User already exist !");
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         } catch (RuntimeException ex) {
+            log.error(ex.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (ExecutionException | InterruptedException e) {
+            throw new RuntimeException(e);
         } finally {
-            logger.log(Level.ALL, "registerUser ended !");
+            log.info("registerUser ended !");
         }
     }
 

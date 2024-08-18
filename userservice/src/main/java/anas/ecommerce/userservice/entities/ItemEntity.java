@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 @Setter
 @RequiredArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Document("item")
 public class ItemEntity {
 
