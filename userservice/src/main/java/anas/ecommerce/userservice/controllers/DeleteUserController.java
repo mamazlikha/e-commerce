@@ -3,8 +3,9 @@ package anas.ecommerce.userservice.controllers;
 import anas.ecommerce.userservice.contracts.IDeleteUserService;
 import anas.ecommerce.userservice.exceptions.UserNotFoundException;
 import anas.ecommerce.userservice.middlewares.ErrorResponse;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -12,17 +13,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 @RestController
+@Slf4j
 @ControllerAdvice
+@RequiredArgsConstructor
 public class DeleteUserController {
 
-    private final Logger logger = Logger.getLogger(DeleteUserController.class.getName());
-
-    @Autowired
-    private IDeleteUserService deleteUserService;
+    private final IDeleteUserService deleteUserService;
 
     @DeleteMapping("users/delete-user/{id}")
     public ResponseEntity<Object> deleteUser(@PathVariable("id") String id){
@@ -37,7 +34,7 @@ public class DeleteUserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         finally {
-            logger.log(Level.ALL, "deleteUser ended !");
+            log.info("deleteUser ended !");
 
         }
     }

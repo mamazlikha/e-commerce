@@ -3,8 +3,8 @@ package anas.ecommerce.userservice.controllers;
 import anas.ecommerce.userservice.contracts.IRegisterNewUserService;
 import anas.ecommerce.userservice.dtos.userdto.CreateUserDto;
 import anas.ecommerce.userservice.exceptions.UserAlreadyExistException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -15,10 +15,10 @@ import java.util.concurrent.ExecutionException;
 @ControllerAdvice
 @RestController
 @Slf4j
+@RequiredArgsConstructor
 public class RegisterNewUserController {
 
-    @Autowired
-    private IRegisterNewUserService registerNewUserService;
+    private final IRegisterNewUserService registerNewUserService;
 
     @ExceptionHandler(RuntimeException.class)
     @PostMapping("users/register-user")

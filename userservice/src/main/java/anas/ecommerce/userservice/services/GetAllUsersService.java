@@ -3,30 +3,24 @@ package anas.ecommerce.userservice.services;
 import anas.ecommerce.userservice.contracts.IGetAllUsersService;
 import anas.ecommerce.userservice.contracts.repositories.IUserRepository;
 import anas.ecommerce.userservice.dtos.userdto.UserDto;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import anas.ecommerce.userservice.mappers.IUserMapper;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Service
+@Slf4j
+@RequiredArgsConstructor
 public class GetAllUsersService implements IGetAllUsersService {
 
+    private final IUserRepository repository;
 
-    private final Logger logger = Logger.getLogger(GetAllUsersService.class.getName());
-
-    @Autowired
-    private IUserRepository repository;
-
-    @Autowired
-    private ModelMapper mapper;
+    private final IUserMapper mapper;
 
     @Override
     public List<UserDto> getAllUsers() {
-        List<UserDto> result = new ArrayList<>();
-        repository.findAll().forEach(x -> result.add(mapper.map(x, UserDto.class)));
-        return result;
+        return mapper.userEntitiesToUserDtos(repository.findAll());
     }
 }

@@ -6,6 +6,7 @@ import anas.commerce.items.dtos.EditProductDto;
 import anas.commerce.items.dtos.ProductDTO;
 import anas.commerce.items.entities.ProductEntity;
 import anas.commerce.items.exceptions.ProductNotFoundException;
+import anas.commerce.items.mappers.IProductMapper;
 import org.bson.types.ObjectId;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class GetProductByIdService implements IGetProductByIdService {
     private final Logger logger = Logger.getLogger(GetProductByIdService.class.getName());
 
     @Autowired
-    private ModelMapper mapper;
+    private IProductMapper mapper;
 
     @Autowired
     private IProductsRepository itemsRepository;
@@ -30,7 +31,7 @@ public class GetProductByIdService implements IGetProductByIdService {
         Optional<ProductEntity> itemOpt = itemsRepository.findById(id);
 
         if(itemOpt.isPresent()){
-            return mapper.map(itemOpt.get(), EditProductDto.class);
+            return mapper.productEntityToProductDto(itemOpt.get());
         }
         throw new ProductNotFoundException("Invalid id : " + id.toHexString());
     }

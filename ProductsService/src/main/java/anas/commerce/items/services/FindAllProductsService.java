@@ -4,6 +4,9 @@ import anas.commerce.items.contracts.IFindAllProductsService;
 import anas.commerce.items.contracts.repositories.IProductsRepository;
 import anas.commerce.items.dtos.EditProductDto;
 import anas.commerce.items.dtos.ProductDTO;
+import anas.commerce.items.mappers.IProductMapper;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,21 +16,20 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Service
+@Slf4j
+@AllArgsConstructor
 public class FindAllProductsService implements IFindAllProductsService {
 
-    private final Logger logger = Logger.getLogger(FindAllProductsService.class.getName());
 
-    @Autowired
-    private IProductsRepository itemsRepository;
+    private final IProductsRepository itemsRepository;
 
-    @Autowired
-    private ModelMapper mapper;
+    private final IProductMapper mapper;
 
 
     @Override
     public List<ProductDTO> findAll() {
         List<ProductDTO> result = new ArrayList<>();
-        itemsRepository.findAll().forEach(x -> result.add(mapper.map(x, EditProductDto.class)));
+        itemsRepository.findAll().forEach(x -> result.add(mapper.productEntityToEditProductDto(x)));
         return result;
     }
 

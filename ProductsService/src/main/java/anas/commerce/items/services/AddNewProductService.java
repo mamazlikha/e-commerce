@@ -6,22 +6,21 @@ import anas.commerce.items.dtos.CreateProductDto;
 import anas.commerce.items.dtos.ProductDTO;
 import anas.commerce.items.entities.ProductEntity;
 import anas.commerce.items.exceptions.ProductAlreadyExistException;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import anas.commerce.items.mappers.IProductMapper;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.logging.Logger;
 
 @Service
+@Slf4j
+@AllArgsConstructor
 public class AddNewProductService implements IAddNewProductService {
 
-    private final Logger logger = Logger.getLogger(AddNewProductService.class.getName());
+    private final IProductMapper mapper;
 
-    @Autowired
-    private ModelMapper mapper;
-    @Autowired
-    private IProductsRepository itemsRepository;
+    private final IProductsRepository itemsRepository;
 
     @Override
     public ProductDTO addNewProduct(CreateProductDto createProductDTO) throws RuntimeException {
@@ -29,7 +28,7 @@ public class AddNewProductService implements IAddNewProductService {
         if(alreadyExist.isPresent()){
             throw new ProductAlreadyExistException(createProductDTO.getSupplierProductNumber());
         }
-        return mapper.map(itemsRepository.save(mapper.map(createProductDTO, ProductEntity.class)), ProductDTO.class);
+        return mapper.productEntityToEditProductDto(itemsRepository.save(mapper.productDtoToProductEntity(createProductDTO)));
     }
 
 }

@@ -1,14 +1,10 @@
 package anas.commerce.items.dtos;
 
 import com.mongodb.lang.NonNull;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 
-@Getter
-@Setter
+@Data
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class ProductDTO {

@@ -5,6 +5,9 @@ import anas.commerce.items.contracts.repositories.IProductsRepository;
 import anas.commerce.items.dtos.EditProductDto;
 import anas.commerce.items.entities.ProductEntity;
 import anas.commerce.items.exceptions.ProductNotFoundException;
+import anas.commerce.items.mappers.IProductMapper;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,16 +17,13 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 @Service
+@Slf4j
+@AllArgsConstructor
 public class EditProductService implements IEditProductService {
 
-    private final Logger logger = Logger.getLogger(EditProductService.class.getName());
+    private final IProductsRepository repository;
 
-
-    @Autowired
-    private IProductsRepository repository;
-
-    @Autowired
-    private ModelMapper mapper;
+    private final IProductMapper mapper;
 
     @Override
     public EditProductDto editProduct(EditProductDto newProductDto) throws RuntimeException {
@@ -31,13 +31,13 @@ public class EditProductService implements IEditProductService {
 
         ProductEntity productEntityToUpdate = productEntityOptional.orElseThrow(() -> new ProductNotFoundException("Invalid id: " + newProductDto.getId()));
 
-        ProductEntity newProductEntity = mapper.map(newProductDto, ProductEntity.class);
+        ProductEntity newProductEntity = mapper.editProductDtoToProductEntity(newProductDto);
         productEntityToUpdate.setDescription(newProductEntity.getDescription());
         productEntityToUpdate.setSupplierProductNumber(newProductEntity.getSupplierProductNumber());
         productEntityToUpdate.setPrice(newProductEntity.getPrice());
         productEntityToUpdate.setName(newProductEntity.getName());
 
-        return mapper.map(repository.save(productEntityToUpdate), EditProductDto.class);
+        return mapper.productEntityToEditProductDto(repository.save(productEntityToUpdate));
 
 
     }

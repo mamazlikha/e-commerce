@@ -5,10 +5,10 @@ import anas.ecommerce.userservice.contracts.repositories.IUserRepository;
 import anas.ecommerce.userservice.dtos.userdto.CreateUserDto;
 import anas.ecommerce.userservice.entities.UserEntity;
 import anas.ecommerce.userservice.exceptions.UserAlreadyExistException;
-import anas.ecommerce.userservice.exceptions.UserNotCreatedException;
+import anas.ecommerce.userservice.mappers.IUserMapper;
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.openapitools.client.ApiException;
 import org.openapitools.client.api.CreateCartForUserControllerApi;
 import org.openapitools.client.model.CartDto;
@@ -23,9 +23,10 @@ import java.util.concurrent.CompletableFuture;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class RegisterNewUserService implements IRegisterNewUserService {
 
-    private final ModelMapper mapper;
+    private final IUserMapper mapper;
     @Value("${cartservice.host}")
     private String cartServiceUrl;
 
@@ -38,10 +39,6 @@ public class RegisterNewUserService implements IRegisterNewUserService {
 
     private CreateCartForUserControllerApi createCartForUserControllerApi;
 
-    @Autowired
-    public RegisterNewUserService(ModelMapper modelMapper){
-        mapper = modelMapper;
-    }
 
     @PostConstruct
     @Profile("test")
@@ -63,8 +60,8 @@ public class RegisterNewUserService implements IRegisterNewUserService {
                 throw new RuntimeException(e);
             }
             createUserDto.setUserCartDto(response);
-            CreateUserDto savedUser = mapper.map(repository.save(mapper.map(createUserDto, UserEntity.class)), CreateUserDto.class);
-            return CompletableFuture.completedFuture(mapper.map(savedUser, CreateUserDto.class));
+            CreateUserDto savedUser = mapper.createUserEntityToUserDto(repository.save(mapper.userDtoToUserEntity(createUserDto)));
+            return CompletableFuture.completedFuture(savedUser);
 
         }
         throw new UserAlreadyExistException(createUserDto.getEmail(), createUserDto.getPhoneNumber());

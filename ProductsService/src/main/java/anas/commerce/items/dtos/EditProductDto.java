@@ -2,8 +2,7 @@ package anas.commerce.items.dtos;
 
 import lombok.*;
 
-@Getter
-@Setter
+@Data
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class EditProductDto extends ProductDTO {

@@ -5,24 +5,22 @@ import anas.ecommerce.userservice.contracts.repositories.IUserRepository;
 import anas.ecommerce.userservice.dtos.userdto.EditUserDto;
 import anas.ecommerce.userservice.entities.UserEntity;
 import anas.ecommerce.userservice.exceptions.UserNotFoundException;
+import anas.ecommerce.userservice.mappers.IUserMapper;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.logging.Logger;
 
 @Service
+@Slf4j
+@RequiredArgsConstructor
 public class UpdateUserService implements IUpdateUserService {
 
-    private final Logger logger = Logger.getLogger(UpdateUserService.class.getName());
+    private final IUserMapper mapper;
 
-    @Autowired
-    private ModelMapper mapper;
-
-    @Autowired
-    private IUserRepository repository;
+    private final IUserRepository repository;
 
 
     @Override
@@ -31,7 +29,7 @@ public class UpdateUserService implements IUpdateUserService {
         Optional<UserEntity> userEntityOptional = repository.findById(id);
 
         if(userEntityOptional.isPresent()){
-            EditUserDto updatedUserDto = mapper.map(userEntityOptional.get(), EditUserDto.class);
+            EditUserDto updatedUserDto = mapper.userEntityToEditUserDto(userEntityOptional.get());
             updatedUserDto.setId(id.toHexString());
             updatedUserDto.setBirthdate(editUserDto.getBirthdate());
             updatedUserDto.setUserAddressDto(editUserDto.getUserAddressDto());
@@ -39,7 +37,7 @@ public class UpdateUserService implements IUpdateUserService {
             updatedUserDto.setFirstname(editUserDto.getFirstname());
             updatedUserDto.setPhoneNumber(editUserDto.getPhoneNumber());
             updatedUserDto.setEmail(editUserDto.getEmail());
-            return mapper.map(repository.save(mapper.map(updatedUserDto, UserEntity.class)), EditUserDto.class);
+            return mapper.userEntityToEditUserDto(repository.save(mapper.editUserDtoToUserEntity(updatedUserDto)));
         }
         else {
             throw new UserNotFoundException(id);

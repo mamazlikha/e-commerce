@@ -3,6 +3,8 @@ package anas.ecommerce.userservice.controllers;
 import anas.ecommerce.userservice.contracts.IGetUserByIdService;
 import anas.ecommerce.userservice.dtos.userdto.UserDto;
 import anas.ecommerce.userservice.exceptions.UserNotFoundException;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,13 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.logging.Logger;
 
 @RestController
+@Slf4j
+@RequiredArgsConstructor
 public class GetUserByIdController {
 
-    private final Logger logger = Logger.getLogger(GetUserByIdController.class.getName());
 
-
-    @Autowired
-    private IGetUserByIdService getUserByIdService;
+    private final IGetUserByIdService getUserByIdService;
 
     @GetMapping("users/{id}")
     public ResponseEntity<UserDto> getUSerById(@PathVariable("id") String id) {
