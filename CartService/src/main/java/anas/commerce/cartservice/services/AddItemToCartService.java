@@ -9,6 +9,7 @@ import anas.commerce.cartservice.exceptions.ProductServiceIsInvalidException;
 import anas.commerce.cartservice.mappers.ICartMapper;
 import anas.commerce.cartservice.mappers.IItemMapper;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,13 +20,11 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 @Service
+@Slf4j
 @AllArgsConstructor
 public class AddItemToCartService implements IAddItemToCartService {
-
-    private final Logger logger = Logger.getLogger(AddItemToCartService.class.getName());
 
     private final RestTemplate restTemplate;
 

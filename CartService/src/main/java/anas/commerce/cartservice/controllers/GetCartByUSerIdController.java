@@ -3,22 +3,22 @@ package anas.commerce.cartservice.controllers;
 import anas.commerce.cartservice.contracts.IGetCartByUSerIdService;
 import anas.commerce.cartservice.dtos.CartDto;
 import anas.commerce.cartservice.exceptions.CartNotFoundException;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.logging.Logger;
 
 @RestController
+@Slf4j
+@RequiredArgsConstructor
 public class GetCartByUSerIdController {
 
-    private final Logger logger = Logger.getLogger(GetCartByUSerIdController.class.getName());
-    @Autowired
-    private IGetCartByUSerIdService getCartByUserIdService;
+    private final IGetCartByUSerIdService getCartByUserIdService;
 
     @GetMapping("carts/getcartby/{id}")
     public ResponseEntity<CartDto> getCartById(@PathVariable("id") String cartId){

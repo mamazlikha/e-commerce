@@ -7,7 +7,6 @@ import anas.commerce.cartservice.entities.CartEntity;
 import anas.commerce.cartservice.mappers.ICartMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -23,7 +22,6 @@ public class CreateCartForUserService implements ICreateCartForUserService {
 
     @Override
     public CartDto createNewCart() {
-        CartEntity cart = repository.save(new CartEntity(new HashSet<>(), 0));
-        return cartMapper.cartEntityToCartDto(cart);
+        return cartMapper.cartEntityToCartDto(repository.save(new CartEntity(new HashSet<>(), 0)));
     }
 }

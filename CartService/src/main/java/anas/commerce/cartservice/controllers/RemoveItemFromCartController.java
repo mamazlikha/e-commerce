@@ -1,26 +1,24 @@
 package anas.commerce.cartservice.controllers;
 
 import anas.commerce.cartservice.contracts.IRemoveItemFromCartService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.logging.Logger;
 
 @RestController
+@Slf4j
+@RequiredArgsConstructor
 public class RemoveItemFromCartController {
 
-    private final Logger logger = Logger.getLogger(RemoveItemFromCartController.class.getName());
-
-    @Autowired
-    private IRemoveItemFromCartService removeItemFromCartService;
-
+    private final IRemoveItemFromCartService removeItemFromCartService;
 
     @DeleteMapping("carts/deleteitem/{cartid}/{itemid}")
-    public ResponseEntity.HeadersBuilder<? extends ResponseEntity.HeadersBuilder<?>> removeItemFromCart(@PathVariable("cartid") String cartId, @PathVariable("itemid") String itemId){
+    public ResponseEntity.HeadersBuilder<?> removeItemFromCart(@PathVariable("cartid") String cartId, @PathVariable("itemid") String itemId){
         if (removeItemFromCartService.removeItem(new ObjectId(cartId), new ObjectId(itemId))){
             return ResponseEntity.noContent();
         }
