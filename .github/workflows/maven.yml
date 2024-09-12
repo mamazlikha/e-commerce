@@ -34,3 +34,4 @@ jobs:
         sudo apt-get -qy install
         sudo chmod +x ./build.sh
         echo "${{ secrets.MAVEN_TOKEN }}"
+        echo "${{ vars.MAVEN_TOKEN }}"
