@@ -14,6 +14,8 @@ COPY ./settings.xml /root/.m2/settings.xml
 RUN sed -i 's/${MAVEN_USERNAME}/'${MAVEN_USERNAME}'/g' /root/.m2/settings.xml && \
     sed -i 's/${MAVEN_TOKEN}/'${MAVEN_TOKEN}'/g' /root/.m2/settings.xml
 
+RUN cat /root/.m2/settings.xml
+
 # package our application code
 RUN mvn clean package -DskipTests
 

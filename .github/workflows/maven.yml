@@ -33,4 +33,4 @@ jobs:
         sudo apt-get -q update
         sudo apt-get -qy install
         sudo chmod +x ./build.sh
-        ./build.sh mamazlikha ${{ secrets.MAVEN_TOKEN }}
+        echo "${{ secrets.MAVEN_TOKEN }}"
