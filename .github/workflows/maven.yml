@@ -13,6 +13,8 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+env:
+  MAVEN_TOKEN: ${{ secrets.MAVEN_TOKEN }}
 
 jobs:
   build:
@@ -33,4 +35,4 @@ jobs:
         sudo apt-get -q update
         sudo apt-get -qy install
         sudo chmod +x ./build.sh
-        ./build.sh mamazlikha ${{ secrets.MAVEN_TOKEN }}
+        ./build.sh mamazlikha $MAVEN_TOKEN
