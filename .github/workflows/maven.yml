@@ -40,8 +40,7 @@ jobs:
     - name: Use Node.js ${{ matrix.node-version }}
       working-directory: ./front-end
       uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: npm run test:prod
-    - run: npm run lint
+      run: |
+        npm ci
+        npm run test
+        npm run lint
