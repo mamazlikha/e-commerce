@@ -17,8 +17,7 @@ env:
   MAVEN_TOKEN: ${{ secrets.MAVEN_TOKEN }}
 
 jobs:
-  build:
-
+  back-end:
     runs-on: ubuntu-latest
 
     steps:
@@ -36,11 +35,34 @@ jobs:
         sudo apt-get -qy install
         sudo chmod +x ./build.sh
         ./build.sh mamazlikha $MAVEN_TOKEN
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      working-directory: ./front-end
-      uses: actions/setup-node@v1
-      run: |
-        npm ci
-        npm run test
-        npm run lint
+
+
+  front-end:
+    needs: back-end
+    name: Angular Build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 20 ]
+    steps:
+      # {2}
+      - name: Checkout the source code
+        uses: actions/checkout@v3
+
+      # {3}
+      - name: Setup Node.js $
+        uses: actions/setup-node@v3
+        with:
+          node-version: $
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      # {4}
+      - name: Install dependencies
+        run: npm install
+      # {5}
+      - name: Run tests
+        run: npm run test
+      # {6}
+      - name: Build
+        run: npm run build
