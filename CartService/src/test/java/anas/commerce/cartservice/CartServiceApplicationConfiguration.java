@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.testcontainers.containers.MongoDBContainer;
 
 @TestConfiguration(proxyBeanMethods = false)
-public class TestCartServiceApplication {
+public class CartServiceApplicationConfiguration {
 
 	@Bean
 	@ServiceConnection
@@ -16,7 +16,7 @@ public class TestCartServiceApplication {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.from(CartServiceApplication::main).with(TestCartServiceApplication.class).run(args);
+		SpringApplication.from(CartServiceApplication::main).with(CartServiceApplicationConfiguration.class).run(args);
 	}
 
 }

@@ -4,7 +4,7 @@ import anas.commerce.cartservice.contracts.IAddItemToCartService;
 import anas.commerce.cartservice.dtos.CartDto;
 import anas.commerce.cartservice.exceptions.ProductServiceIsInvalidException;
 import org.bson.types.ObjectId;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
-public class AddItemToCartControllerTest {
+class AddItemToCartControllerTest {
 
     @InjectMocks
     private AddItemToCartController addItemToCartController;
@@ -31,7 +31,7 @@ public class AddItemToCartControllerTest {
     private IAddItemToCartService addItemToCartServiceMock;
 
     @Test
-    public void addItemTest_normalItem_ShouldReturn201Created() throws Exception {
+    void addItemTest_normalItem_ShouldReturn201Created() throws Exception {
         // Arrange
         ObjectId cartId = new ObjectId("507f191e810c19729de860ea");
         String itemId = "itemId";
@@ -50,7 +50,7 @@ public class AddItemToCartControllerTest {
 
 
     @Test
-    public void addItemTest_addItemServiceThrowsProductServiceIsInvalidException_shouldReturn503(){
+    void addItemTest_addItemServiceThrowsProductServiceIsInvalidException_shouldReturn503(){
         // Arrange
         ObjectId cartId = new ObjectId("507f191e810c19729de860ea");
         String itemId = "itemId";
@@ -66,7 +66,7 @@ public class AddItemToCartControllerTest {
 
 
     @Test
-    public void addItemTest_addItemServiceThrowsRunTimeException_shouldReturn500(){
+    void addItemTest_addItemServiceThrowsRunTimeException_shouldReturn500(){
         // Arrange
         ObjectId cartId = new ObjectId("507f191e810c19729de860ea");
         String itemId = "itemId";

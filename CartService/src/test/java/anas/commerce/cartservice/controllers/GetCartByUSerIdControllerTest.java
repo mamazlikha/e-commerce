@@ -5,7 +5,7 @@ import anas.commerce.cartservice.contracts.IGetCartByUSerIdService;
 import anas.commerce.cartservice.dtos.CartDto;
 import anas.commerce.cartservice.exceptions.CartNotFoundException;
 import org.bson.types.ObjectId;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
-public class GetCartByUSerIdControllerTest {
+class GetCartByUSerIdControllerTest {
 
 
     @InjectMocks
@@ -31,7 +31,7 @@ public class GetCartByUSerIdControllerTest {
     private IGetCartByUSerIdService getCartByUSerIdService;
 
     @Test
-    public void getCartByIdTest_validCartId_shouldReturnValidCartDto(){
+    void getCartByIdTest_validCartId_shouldReturnValidCartDto(){
         // Arrange
         String cartId = "507f191e810c19729de860ea";
         CartDto mockResponse = new CartDto("newid", new HashSet<>(), 0);
@@ -49,7 +49,7 @@ public class GetCartByUSerIdControllerTest {
     }
 
     @Test
-    public void getCartByIdTest_notValidCartId_shouldThrowCartNotFoundException() {
+    void getCartByIdTest_notValidCartId_shouldThrowCartNotFoundException() {
         // Arrange
         String cartId = "507f191e810c19729de860ea";
         when(getCartByUSerIdService.getCartByUserId(new ObjectId(cartId))).thenThrow(CartNotFoundException.class);

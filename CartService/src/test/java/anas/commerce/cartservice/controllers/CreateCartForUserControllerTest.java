@@ -3,8 +3,7 @@ package anas.commerce.cartservice.controllers;
 
 import anas.commerce.cartservice.contracts.ICreateCartForUserService;
 import anas.commerce.cartservice.dtos.CartDto;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -13,14 +12,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import static org.mockito.Mockito.when;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
-public class CreateCartForUserControllerTest {
+class CreateCartForUserControllerTest {
 
 
     @InjectMocks
@@ -30,7 +28,7 @@ public class CreateCartForUserControllerTest {
     private ICreateCartForUserService createCartForUserService;
 
     @Test
-    public void createCartForUserTest_cartServiceRespondOk_shouldCreateNewCartForUser(){
+    void createCartForUserTest_cartServiceRespondOk_shouldCreateNewCartForUser(){
         // Arrange
         CartDto mockResponse = new CartDto();
         when(createCartForUserService.createNewCart()).thenReturn(mockResponse);
