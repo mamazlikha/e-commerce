@@ -25,16 +25,16 @@ jobs:
       matrix:
         include:
           - dockerfile: ./inventoryservice/dockerfile.build
-            image: $REGISTRY/mamazlikha/inventoryservice
+            image: mamazlikha/inventoryservice
 
           - dockerfile: ./CartService/dockerfile.build
-            image: $REGISTRY/mamazlikha/cartservice
+            image: mamazlikha/cartservice
 
           - dockerfile: ./userservice/dockerfile.build
-            image: $REGISTRY/mamazlikha/userservice
+            image: mamazlikha/userservice
 
           - dockerfile: ./ProductsService/dockerfile.build
-            image: $REGISTRY/mamazlikha/productservice
+            image: mamazlikha/productservice
     permissions:
       contents: read
       packages: write
