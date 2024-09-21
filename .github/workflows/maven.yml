@@ -37,6 +37,7 @@ jobs:
         ./build.sh mamazlikha $MAVEN_TOKEN
 
   front-end:
+    needs: back-end
     name: Angular Build
     runs-on: ubuntu-latest
     strategy:
