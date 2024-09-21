@@ -25,16 +25,16 @@ jobs:
       matrix:
         include:
           - dockerfile: ./inventoryservice/dockerfile.build
-            image: ${{ env.REGISTRY }}/mamazlikha/inventoryservice
+            image: $REGISTRY/mamazlikha/inventoryservice
 
           - dockerfile: ./CartService/dockerfile.build
-            image: ${{ env.REGISTRY }}/mamazlikha/cartservice
+            image: $REGISTRY/mamazlikha/cartservice
 
           - dockerfile: ./userservice/dockerfile.build
-            image: ${{ env.REGISTRY }}/mamazlikha/userservice
+            image: $REGISTRY/mamazlikha/userservice
 
           - dockerfile: ./ProductsService/dockerfile.build
-            image: ${{ env.REGISTRY }}/mamazlikha/productservice
+            image: $REGISTRY/mamazlikha/productservice
     permissions:
       contents: read
       packages: write
@@ -54,7 +54,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: ${{ matrix.image }}
+          images: ${{ env.REGISTRY }}/${{ matrix.image }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
