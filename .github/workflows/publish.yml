@@ -24,10 +24,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - dockerfile: ./inventoryservice
-          - dockerfile: ./CartService
-          - dockerfile: ./userservice
-          - dockerfile: ./ProductsService
+          - dockerfile: ./inventoryservice/Dockerfile
+          - dockerfile: ./CartService/Dockerfile
+          - dockerfile: ./userservice/Dockerfile
+          - dockerfile: ./ProductsService/Dockerfile
     permissions:
       contents: read
       packages: write
