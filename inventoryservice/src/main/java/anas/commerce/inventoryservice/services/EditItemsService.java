@@ -7,19 +7,17 @@ import anas.commerce.inventoryservice.entities.ItemEntity;
 import anas.commerce.inventoryservice.exceptions.ItemNotFoundException;
 import anas.commerce.inventoryservice.mappers.IItemMapper;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.logging.Logger;
 
 @Service
+@Slf4j
 @AllArgsConstructor
 public class EditItemsService implements IEditItemsService {
 
-    private final Logger logger = Logger.getLogger(EditItemsService.class.getName());
 
     private final IItemsRepository repository;
 

@@ -2,6 +2,8 @@ package anas.commerce.inventoryservice.controllers;
 
 import anas.commerce.inventoryservice.contracts.IRemoveItemService;
 import anas.commerce.inventoryservice.exceptions.ItemNotFoundException;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,16 +12,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Objects;
-import java.util.logging.Logger;
-
 @RestController
+@RequiredArgsConstructor
+@Slf4j
 public class RemoveItemController {
 
-    private final Logger logger = Logger.getLogger(RemoveItemController.class.getName());
-
-    @Autowired
-    private IRemoveItemService removeItemService;
+    private final IRemoveItemService removeItemService;
 
 
     @DeleteMapping("items/delete/{product-id}/{item-id}")

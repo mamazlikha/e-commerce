@@ -1,17 +1,16 @@
 package anas.commerce.inventoryservice.controllers;
 
 import anas.commerce.inventoryservice.contracts.IAddNewItemService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.logging.Logger;
-
 @RestController
+@RequiredArgsConstructor
+@Slf4j
 public class AddNEwItemController {
 
-    private final Logger logger = Logger.getLogger(AddNEwItemController.class.getName());
 
-    @Autowired
-    private IAddNewItemService addNewItemService;
+    private final IAddNewItemService addNewItemService;
 
 }

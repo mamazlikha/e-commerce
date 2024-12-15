@@ -2,29 +2,25 @@ package anas.commerce.items.services;
 
 import anas.commerce.items.contracts.IGetProductByIdService;
 import anas.commerce.items.contracts.repositories.IProductsRepository;
-import anas.commerce.items.dtos.EditProductDto;
 import anas.commerce.items.dtos.ProductDTO;
 import anas.commerce.items.entities.ProductEntity;
 import anas.commerce.items.exceptions.ProductNotFoundException;
 import anas.commerce.items.mappers.IProductMapper;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.logging.Logger;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class GetProductByIdService implements IGetProductByIdService {
 
-    private final Logger logger = Logger.getLogger(GetProductByIdService.class.getName());
+    private final IProductMapper mapper;
 
-    @Autowired
-    private IProductMapper mapper;
-
-    @Autowired
-    private IProductsRepository itemsRepository;
+    private final IProductsRepository itemsRepository;
 
     @Override
     public ProductDTO getProductById(ObjectId id) throws ProductNotFoundException {

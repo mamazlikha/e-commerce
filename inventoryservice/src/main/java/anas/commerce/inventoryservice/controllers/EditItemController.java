@@ -1,26 +1,24 @@
 package anas.commerce.inventoryservice.controllers;
 
 import anas.commerce.inventoryservice.contracts.IEditItemsService;
-import anas.commerce.inventoryservice.contracts.IRemoveItemService;
 import anas.commerce.inventoryservice.dtos.ItemDto;
 import anas.commerce.inventoryservice.exceptions.ItemNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.logging.Logger;
-
 @RestController
+@Slf4j
+@RequiredArgsConstructor
 public class EditItemController {
 
-    private final Logger logger = Logger.getLogger(EditItemController.class.getName());
 
-    @Autowired
-    private IEditItemsService editItemsService;
+    private final IEditItemsService editItemsService;
 
     @PutMapping("items/edit")
     public ResponseEntity<ItemDto> editItem(@RequestBody @Valid ItemDto newItemDto){

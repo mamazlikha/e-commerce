@@ -28,8 +28,7 @@ public class AddItemToCartService implements IAddItemToCartService {
 
     private final RestTemplate restTemplate;
 
-    @Autowired
-    private ICartRepository repository;
+    private final ICartRepository repository;
 
     private final ICartMapper cartMapper;
 
@@ -39,10 +38,11 @@ public class AddItemToCartService implements IAddItemToCartService {
     private String itemServiceUrl;
 
     @Autowired
-    public AddItemToCartService(RestTemplateBuilder builder, IItemMapper itemMapper, ICartMapper cartMapper){
+    public AddItemToCartService(RestTemplateBuilder builder, ICartRepository repository, IItemMapper itemMapper, ICartMapper cartMapper){
         restTemplate = builder.build();
         this.itemMapper = itemMapper;
         this.cartMapper = cartMapper;
+        this.repository = repository;
     }
 
     public CartDto addItem(ObjectId cartId, String itemId) throws RuntimeException {
