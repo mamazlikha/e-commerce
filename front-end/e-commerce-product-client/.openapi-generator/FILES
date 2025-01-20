@@ -12,6 +12,8 @@ configuration.ts
 encoder.ts
 git_push.sh
 index.ts
+model/createProductDto.ts
+model/editProductDto.ts
 model/link.ts
 model/models.ts
 model/productDTO.ts

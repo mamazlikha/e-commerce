@@ -19,6 +19,8 @@
     "@angular/platform-browser": "^16.2.0",
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
+    "@mamazlikha/e-commerce-cart-client-typescript": "^0.0.1",
+    "@ngx-translate/core": "^15.0.0",
     "@openapitools/openapi-generator-cli": "^2.7.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

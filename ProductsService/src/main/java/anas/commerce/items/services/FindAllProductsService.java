@@ -2,18 +2,14 @@ package anas.commerce.items.services;
 
 import anas.commerce.items.contracts.IFindAllProductsService;
 import anas.commerce.items.contracts.repositories.IProductsRepository;
-import anas.commerce.items.dtos.EditProductDto;
 import anas.commerce.items.dtos.ProductDTO;
 import anas.commerce.items.mappers.IProductMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Service
 @Slf4j
