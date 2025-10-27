@@ -12,7 +12,9 @@ docker build -t productservice .
 echo "========== Building CartService microservice ========\n"
 cd ../CartService
 echo "========== Running tests ========\n"
-mvn test
+export MAVEN_USERNAME=$1
+export MAVEN_TOKEN=$2
+mvn test -s ./settings.xml
 echo "========== Building CartService docker image ! ========\n"
 docker build --build-arg MAVEN_USERNAME=$1 --build-arg MAVEN_TOKEN=$2 -t cartservice .
 

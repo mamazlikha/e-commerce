@@ -9,7 +9,7 @@ ARG MAVEN_TOKEN
 # copy the pom and src code to the container
 COPY ./CartService ./
 
-COPY ./userservice/settings.xml /root/.m2/settings.xml
+COPY ./CartService/settings.xml /root/.m2/settings.xml
 
 # Replace the placeholders with the actual secrets
 RUN sed -i 's/${MAVEN_USERNAME}/'${MAVEN_USERNAME}'/g' /root/.m2/settings.xml && \
