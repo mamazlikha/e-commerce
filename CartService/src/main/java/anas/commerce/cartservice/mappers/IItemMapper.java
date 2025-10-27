@@ -7,6 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
+import java.util.Set;
+
 @Mapper(componentModel = "spring")
 public interface IItemMapper {
 
@@ -34,4 +36,6 @@ public interface IItemMapper {
     default ObjectId productEntityIdToObjectId(String id){
         return new ObjectId(id);
     }
+
+    Set<ItemDTO> itemEntitiesToItemsDto(Set<ItemEntity> items);
 }

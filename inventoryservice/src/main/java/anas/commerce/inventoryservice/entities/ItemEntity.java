@@ -10,10 +10,10 @@ import jakarta.persistence.GeneratedValue;
 @Getter
 @Setter
 @RequiredArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 @Document("item")
 public class ItemEntity {
-
 
     @Id
     @GeneratedValue
@@ -22,8 +22,5 @@ public class ItemEntity {
 
     @NonNull
     private ObjectId productEntityId;
-
-    @NonNull
-    private String supplierNumber;
 
 }

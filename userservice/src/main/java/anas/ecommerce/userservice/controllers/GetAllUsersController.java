@@ -20,7 +20,7 @@ public class GetAllUsersController {
 
     private final IGetAllUsersService getAllUsersService;
 
-    @GetMapping("users")
+    @GetMapping(value = "users", produces="application/json")
     public ResponseEntity<List<UserDto>> getAllUsers(){
         return new ResponseEntity<>(getAllUsersService.getAllUsers(), HttpStatus.OK);
     }

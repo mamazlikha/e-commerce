@@ -11,16 +11,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/products")
 public class EditProductController {
 
     private final IEditProductService editProductService;
 
-    @PutMapping("products/edit")
+    @PutMapping("/edit")
     public ResponseEntity<ProductDTO> updateProduct(@RequestBody @Valid EditProductDto newProductDtp) {
         try {
             return new ResponseEntity<>(editProductService.editProduct(newProductDtp), HttpStatus.OK);

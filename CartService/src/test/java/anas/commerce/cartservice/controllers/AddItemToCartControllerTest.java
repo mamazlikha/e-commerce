@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.HashSet;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
@@ -70,13 +69,12 @@ class AddItemToCartControllerTest {
         // Arrange
         ObjectId cartId = new ObjectId("507f191e810c19729de860ea");
         String itemId = "itemId";
-        CartDto mockResponse = new CartDto("newid", new HashSet<>(), 0);
-        when(addItemToCartServiceMock.addItem(cartId, itemId)).thenThrow(RuntimeException.class);
+        when(addItemToCartServiceMock.addItem(cartId, itemId)).thenThrow(ProductServiceIsInvalidException.class);
 
         // Act
         ResponseEntity<CartDto> response = addItemToCartController.addItem(cartId.toHexString(), itemId);
 
         // Assert
-        assertEquals(response.getStatusCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        assertEquals(response.getStatusCode(), HttpStatus.SERVICE_UNAVAILABLE);
     }
 }

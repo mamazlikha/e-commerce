@@ -18,13 +18,14 @@ import java.util.logging.Level;
 @ControllerAdvice
 @Slf4j
 @RequiredArgsConstructor
+@RequestMapping("/users")
 public class UpdateUserController {
 
     private final IUpdateUserService updateUserService;
 
 
     @ExceptionHandler(RuntimeException.class)
-    @PutMapping("users/update-user/{id}")
+    @PutMapping(value = "/update-user/{id}", produces="application/json")
     public ResponseEntity<UserDto> updateUser(@RequestBody @Validated EditUserDto editUserDto, @PathVariable("id") String id) {
         try {
             return new ResponseEntity<>(updateUserService.updateUserById(editUserDto, new ObjectId(id)), HttpStatus.OK);

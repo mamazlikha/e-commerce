@@ -17,8 +17,8 @@ public class AddNewItemService implements IAddNewItemService {
     private final IItemsRepository repository;
 
     @Override
-    public Integer increaseProductQuantity(ObjectId productId, String supplierNumber) {
-        repository.save(new ItemEntity(productId, supplierNumber));
-        return repository.findByProductEntityId(productId).size();
+    public boolean increaseProductQuantity(ObjectId productId) {
+        repository.save(new ItemEntity(productId));
+        return true;
     }
 }

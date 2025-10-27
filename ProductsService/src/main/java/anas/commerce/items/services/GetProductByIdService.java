@@ -20,15 +20,15 @@ public class GetProductByIdService implements IGetProductByIdService {
 
     private final IProductMapper mapper;
 
-    private final IProductsRepository itemsRepository;
+    private final IProductsRepository productsRepository;
 
     @Override
     public ProductDTO getProductById(ObjectId id) throws ProductNotFoundException {
-        Optional<ProductEntity> itemOpt = itemsRepository.findById(id);
+        Optional<ProductEntity> itemOpt = productsRepository.findById(id);
 
         if(itemOpt.isPresent()){
             return mapper.productEntityToProductDto(itemOpt.get());
         }
-        throw new ProductNotFoundException("Invalid id : " + id.toHexString());
+        throw new ProductNotFoundException("Invalid id : " + id.toHexString(), id.toHexString());
     }
 }

@@ -2,7 +2,8 @@ package anas.commerce.items.dtos;
 
 import lombok.*;
 
-@Data
+@Getter
+@Setter
 public class CreateProductDto extends ProductDTO{
 
     public CreateProductDto(String supplierProductNumber, double price, String name, String description){

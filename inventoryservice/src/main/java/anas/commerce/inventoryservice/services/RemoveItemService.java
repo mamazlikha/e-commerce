@@ -25,7 +25,7 @@ public class RemoveItemService implements IRemoveItemService {
         if(itemEntityOptional.isPresent() && itemEntityOptional.get().getProductEntityId() == productId){
             repository.delete(itemEntityOptional.get());
         } else {
-            throw new ItemNotFoundException("Item with id : " + id.toHexString() + " does not exist !");
+            throw new ItemNotFoundException("Item with id : " + id.toHexString() + " does not exist !", id.toHexString());
         }
         return repository.findByProductEntityId(productId).size();
     }

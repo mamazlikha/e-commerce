@@ -1,6 +1,12 @@
 package anas.commerce.items.exceptions;
 
+import lombok.Getter;
+
+@Getter
 public class ProductNotFoundException extends RuntimeException {
-    public ProductNotFoundException(String s) {
+    private final String productId;
+
+    public ProductNotFoundException(String s, String productId) {
+        this.productId = productId;
     }
 }

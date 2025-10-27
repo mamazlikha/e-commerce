@@ -8,20 +8,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
 @ControllerAdvice
 @RequiredArgsConstructor
+@RequestMapping("/users")
 public class DeleteUserController {
 
     private final IDeleteUserService deleteUserService;
 
-    @DeleteMapping("users/delete-user/{id}")
+    @DeleteMapping(value = "/delete-user/{id}", produces="application/json")
     public ResponseEntity<Object> deleteUser(@PathVariable("id") String id){
         try {
             deleteUserService.deleteUser(new ObjectId(id));

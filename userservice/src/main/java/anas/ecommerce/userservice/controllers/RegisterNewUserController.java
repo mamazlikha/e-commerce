@@ -16,12 +16,13 @@ import java.util.concurrent.ExecutionException;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
+@RequestMapping("/users")
 public class RegisterNewUserController {
 
     private final IRegisterNewUserService registerNewUserService;
 
     @ExceptionHandler(RuntimeException.class)
-    @PostMapping("users/register-user")
+    @PostMapping(value = "/register-user", produces="application/json")
     public ResponseEntity<CreateUserDto> registerUser(@RequestBody @Validated CreateUserDto createUserDto) {
         log.info("Adding new user ...");
         try {

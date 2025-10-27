@@ -1,9 +1,9 @@
 package anas.ecommerce.userservice.dtos.userdto;
 
+import anas.ecommerce.client.model.CartDto;
 import anas.ecommerce.userservice.dtos.AddressDto;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
-import org.openapitools.client.model.CartDto;
 
 import java.time.LocalDate;
 

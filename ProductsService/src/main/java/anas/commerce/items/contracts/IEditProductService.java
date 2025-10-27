@@ -6,6 +6,9 @@ public interface IEditProductService {
 
     /**
      *
-     * */
+     * @param newProductDto
+     * @return EditProductDto
+     * @throws RuntimeException
+     */
     EditProductDto editProduct(EditProductDto newProductDto) throws RuntimeException;
 }

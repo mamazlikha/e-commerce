@@ -14,7 +14,7 @@ cd ../CartService
 echo "========== Running tests ========\n"
 mvn test
 echo "========== Building CartService docker image ! ========\n"
-docker build -t cartservice .
+docker build --build-arg MAVEN_USERNAME=$1 --build-arg MAVEN_TOKEN=$2 -t cartservice .
 
 echo "========== Building inventoryservice microservice ========\n"
 cd ../inventoryservice

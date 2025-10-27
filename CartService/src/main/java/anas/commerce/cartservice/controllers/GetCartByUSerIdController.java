@@ -10,22 +10,26 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
 @Slf4j
 @RequiredArgsConstructor
+@RequestMapping("/carts")
 public class GetCartByUSerIdController {
 
     private final IGetCartByUSerIdService getCartByUserIdService;
 
-    @GetMapping("carts/getcartby/{id}")
-    public ResponseEntity<CartDto> getCartById(@PathVariable("id") String cartId){
+    @GetMapping(value = "/getcartby/{id}", produces="application/json")
+    public ResponseEntity<CartDto> getCartById(@PathVariable("id") String userId){
         try {
-            return new ResponseEntity<>(getCartByUserIdService.getCartByUserId(new ObjectId(cartId)), HttpStatus.OK);
+            log.info("Getting cart for userid : " + userId);
+            return new ResponseEntity<>(getCartByUserIdService.getCartByUserId(new ObjectId(userId)), HttpStatus.OK);
         }
         catch (CartNotFoundException e) {
+            log.error("User id is invalid");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

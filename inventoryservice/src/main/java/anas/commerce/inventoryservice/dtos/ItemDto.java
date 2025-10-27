@@ -6,6 +6,8 @@ import lombok.*;
 
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class ItemDto {
@@ -16,8 +18,5 @@ public class ItemDto {
 
     @NonNull
     private String productEntityId;
-
-    @NonNull
-    private String supplierNumber;
 
 }

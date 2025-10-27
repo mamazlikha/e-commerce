@@ -7,8 +7,9 @@ public interface IAddNewItemService {
 
     /**
      *
-     * @param
-     * */
-    Integer increaseProductQuantity(ObjectId productId, String supplierNumber);
+     * @param productId
+     * @return true if item was successfully added to data base
+     */
+    boolean increaseProductQuantity(ObjectId productId);
 
 }

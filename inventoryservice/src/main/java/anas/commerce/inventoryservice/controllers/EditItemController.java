@@ -10,17 +10,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Slf4j
 @RequiredArgsConstructor
+@RequestMapping("/items")
 public class EditItemController {
 
 
     private final IEditItemsService editItemsService;
 
-    @PutMapping("items/edit")
+    @PutMapping(value = "/edit", produces="application/json")
     public ResponseEntity<ItemDto> editItem(@RequestBody @Valid ItemDto newItemDto){
         try {
             return new ResponseEntity<>(editItemsService.editItem(newItemDto), HttpStatus.OK);

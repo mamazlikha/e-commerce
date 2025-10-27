@@ -20,12 +20,11 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 class CreateCartForUserControllerTest {
 
-
     @InjectMocks
-    private CreateCartForUserController createCartForUserController;
+    CreateCartForUserController createCartForUserController;
 
     @Mock
-    private ICreateCartForUserService createCartForUserService;
+    ICreateCartForUserService createCartForUserService;
 
     @Test
     void createCartForUserTest_cartServiceRespondOk_shouldCreateNewCartForUser(){

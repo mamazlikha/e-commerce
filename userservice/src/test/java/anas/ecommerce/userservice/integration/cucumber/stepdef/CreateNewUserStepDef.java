@@ -1,11 +1,17 @@
 package anas.ecommerce.userservice.integration.cucumber.stepdef;
 
+import anas.ecommerce.client.ApiClient;
+import anas.ecommerce.client.ApiException;
+import anas.ecommerce.client.Configuration;
+import anas.ecommerce.client.api.CreateCartForUserControllerApi;
+import anas.ecommerce.client.model.CartDto;
 import anas.ecommerce.userservice.contracts.repositories.IUserRepository;
 import anas.ecommerce.userservice.dtos.AddressDto;
 import anas.ecommerce.userservice.dtos.userdto.CreateUserDto;
 import anas.ecommerce.userservice.entities.UserEntity;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.Before;
+import io.cucumber.java.bs.A;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -13,10 +19,8 @@ import io.cucumber.java.en.When;
 import org.bson.types.ObjectId;
 import org.junit.Assert;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.api.CreateCartForUserControllerApi;
-import org.openapitools.client.model.CartDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpHeaders;
@@ -32,18 +36,20 @@ import static org.mockito.Mockito.when;
 
 public class CreateNewUserStepDef {
 
-    private final RestTemplate restTemplate;
-    private CreateUserDto userDto;
-    private ResponseEntity<CreateUserDto> response;
-    private final HttpHeaders headers = new HttpHeaders();
+    final RestTemplate restTemplate;
+    CreateUserDto userDto;
+    ResponseEntity<CreateUserDto> response;
+    final HttpHeaders headers = new HttpHeaders();
 
-    private final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     @Autowired
-    private IUserRepository userRepository;
+    IUserRepository userRepository;
 
     @Mock
-    private CreateCartForUserControllerApi createCartForUserControllerApiMock;
+    Configuration configuration;
+    @Mock
+    CreateCartForUserControllerApi createCartForUserControllerApiMock;
     @Autowired
     public CreateNewUserStepDef(RestTemplateBuilder builder) {
         restTemplate = builder.build();
@@ -52,12 +58,15 @@ public class CreateNewUserStepDef {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        createCartForUserControllerApiMock = Mockito.mock(CreateCartForUserControllerApi.class);
+        configuration = Mockito.mock(Configuration.class);
     }
 
     @Given("Empty database")
     public void emptyDatabase() throws ApiException {
         userRepository.deleteAll();
         Assert.assertEquals(0, userRepository.findAll().size());
+        when(Configuration.getDefaultApiClient()).thenReturn(new ApiClient());
         when(createCartForUserControllerApiMock.createCartForUser()).thenReturn(new CartDto());
     }
 

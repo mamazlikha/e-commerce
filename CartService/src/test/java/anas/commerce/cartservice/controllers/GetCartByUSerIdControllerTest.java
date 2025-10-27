@@ -22,13 +22,11 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
 class GetCartByUSerIdControllerTest {
-
-
     @InjectMocks
-    private GetCartByUSerIdController getCartByUSerIdController;
+    GetCartByUSerIdController getCartByUSerIdController;
 
     @Mock
-    private IGetCartByUSerIdService getCartByUSerIdService;
+    IGetCartByUSerIdService getCartByUSerIdService;
 
     @Test
     void getCartByIdTest_validCartId_shouldReturnValidCartDto(){

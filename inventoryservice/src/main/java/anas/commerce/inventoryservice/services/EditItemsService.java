@@ -27,10 +27,9 @@ public class EditItemsService implements IEditItemsService {
     public ItemDto editItem(ItemDto newItemDto) throws RuntimeException {
         Optional<ItemEntity> itemEntityOptional = repository.findById(new ObjectId(newItemDto.getId()));
 
-        ItemEntity productEntityToUpdate = itemEntityOptional.orElseThrow(() -> new ItemNotFoundException("Invalid id: " + newItemDto.getId()));
+        ItemEntity productEntityToUpdate = itemEntityOptional.orElseThrow(() -> new ItemNotFoundException("Invalid id: " + newItemDto.getId(), newItemDto.getId()));
         ItemEntity newItemEntity = mapper.itemDtoToItemEntity(newItemDto);
 
-        productEntityToUpdate.setSupplierNumber(newItemEntity.getSupplierNumber());
         productEntityToUpdate.setProductEntityId(newItemEntity.getProductEntityId());
 
         return mapper.itemEntityToItemDto(repository.save(productEntityToUpdate));

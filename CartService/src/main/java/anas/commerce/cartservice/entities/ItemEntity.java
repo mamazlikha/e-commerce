@@ -11,6 +11,7 @@ import java.util.Objects;
 @Data
 @RequiredArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Document("item")
 public class ItemEntity {
 
@@ -20,9 +21,6 @@ public class ItemEntity {
 
     @NonNull
     private ObjectId productEntityId;
-
-    @NonNull
-    private String supplierNumber;
 
 
     @Override

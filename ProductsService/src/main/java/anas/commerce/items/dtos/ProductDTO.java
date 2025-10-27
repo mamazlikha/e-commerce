@@ -8,17 +8,15 @@ import lombok.*;
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class ProductDTO {
-
+    @NonNull
+    protected String supplierProductNumber;
 
     @NonNull
-    private String supplierProductNumber;
+    protected double price;
 
     @NonNull
-    private double price;
+    protected String name;
 
     @NonNull
-    private String name;
-
-    @NonNull
-    private String description;
+    protected String description;
 }

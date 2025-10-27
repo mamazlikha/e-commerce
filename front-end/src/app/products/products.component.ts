@@ -1,6 +1,8 @@
 import { NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FindAllProductsControllerService, ProductDTO } from 'e-commerce-product-client';
+import { GetCartByUSerIdControllerService } from '@mamazlikha/e-commerce-cart-client-typescript/dist/e-commerce-cart-client-typescript';
+import { CreateCartForUserControllerService } from '@mamazlikha/e-commerce-cart-client-typescript/dist/e-commerce-cart-client-typescript';
+import { FindAllProductsControllerService, GetProductByIdControllerService } from '@mamazlikha/e-commerce-product-client-typescript/dist/e-commerce-product-client-typescript';
 
 @Component({
   selector: 'app-products',
@@ -11,16 +13,27 @@ import { FindAllProductsControllerService, ProductDTO } from 'e-commerce-product
 })
 export class ProductsComponent implements OnInit {
 
-  public products : Array<ProductDTO> = [];
+  public products : Array<any> = [];
 
-  constructor(private readonly findAllProductsControllerService: FindAllProductsControllerService){
+  constructor(private getProductByIdControllerService: GetProductByIdControllerService,
+    private readonly findAllProductsControllerService: FindAllProductsControllerService,
+     private getCartByUserIdControllerService: GetCartByUSerIdControllerService, private createCartForUserControllerService: CreateCartForUserControllerService){
   }
 
   ngOnInit() : void {
-
-    this.findAllProductsControllerService.getAllItems().subscribe((items : Array<ProductDTO>) => {
-      items.forEach(item => this.products.push(item));
+    this.getCartByUserIdControllerService.getCartById('653e9af7782d206ae4af64b1').subscribe((value) => {
+      console.log('value.id = ', value.id);
+      console.log('value.itemsDto = ', value.itemsDto);
+      console.log('value.totalPrice = ', value.totalPrice);
     });
+    
+    this.getProductByIdControllerService.getProductById('66c21ad2ae32a96d9ba449d2').subscribe(value => {
+      console.log('value = ', value);
+    });
+
+    this.findAllProductsControllerService.getAllItems().subscribe(values => {
+      console.log('values = ', values);
+    })
   }
 
 }

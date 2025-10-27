@@ -11,5 +11,5 @@ import java.util.Optional;
 @Repository
 public interface IItemsRepository extends MongoRepository<ItemEntity, ObjectId> {
 
-    List<Optional<ItemEntity>> findByProductEntityId (ObjectId productEntityId);
+    List<ItemEntity> findByProductEntityId (ObjectId productEntityId);
 }

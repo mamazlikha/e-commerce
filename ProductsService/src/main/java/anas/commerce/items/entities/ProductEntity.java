@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
+@AllArgsConstructor
 @Document("product")
 public class ProductEntity {
 
