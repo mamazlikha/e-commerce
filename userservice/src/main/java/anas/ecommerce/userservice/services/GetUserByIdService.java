@@ -21,6 +21,6 @@ public class GetUserByIdService implements IGetUserByIdService {
 
     @Override
     public UserDto getUserById(ObjectId id) throws RuntimeException {
-        return mapper.userEntityToUserDto(repository.findById(id).orElseThrow(() -> new UserNotFoundException(id)));
+        return mapper.entityToDto(repository.findById(id).orElseThrow(() -> new UserNotFoundException(id)));
     }
 }

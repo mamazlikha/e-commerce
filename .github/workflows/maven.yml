@@ -35,6 +35,10 @@ jobs:
         sudo apt-get -qy install
         sudo chmod +x ./build.sh
         ./build.sh mamazlikha $MAVEN_TOKEN
+    - name: Cleanup docker images and volumes
+      continue-on-error: true
+      run: |
+        docker stop $(docker ps -a);docker rm $(docker ps -qa);docker rmi -f $(docker image -qa);docker volume rm $(docker volume ls -q);docker system prune -af;
 
   front-end:
     needs: back-end

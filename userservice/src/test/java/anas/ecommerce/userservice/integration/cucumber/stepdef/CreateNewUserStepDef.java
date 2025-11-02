@@ -1,29 +1,19 @@
 package anas.ecommerce.userservice.integration.cucumber.stepdef;
 
-import anas.ecommerce.client.ApiClient;
-import anas.ecommerce.client.ApiException;
-import anas.ecommerce.client.Configuration;
-import anas.ecommerce.client.api.CreateCartForUserControllerApi;
-import anas.ecommerce.client.model.CartDto;
 import anas.ecommerce.userservice.contracts.repositories.IUserRepository;
 import anas.ecommerce.userservice.dtos.AddressDto;
 import anas.ecommerce.userservice.dtos.userdto.CreateUserDto;
 import anas.ecommerce.userservice.entities.UserEntity;
+import com.github.tomakehurst.wiremock.WireMockServer;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.Before;
-import io.cucumber.java.bs.A;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.bson.types.ObjectId;
-import org.junit.Assert;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -32,42 +22,43 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
-import static org.mockito.Mockito.when;
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CreateNewUserStepDef {
 
-    final RestTemplate restTemplate;
+    RestTemplate restTemplate;
     CreateUserDto userDto;
     ResponseEntity<CreateUserDto> response;
-    final HttpHeaders headers = new HttpHeaders();
 
-    final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     @Autowired
     IUserRepository userRepository;
 
-    @Mock
-    Configuration configuration;
-    @Mock
-    CreateCartForUserControllerApi createCartForUserControllerApiMock;
     @Autowired
     public CreateNewUserStepDef(RestTemplateBuilder builder) {
         restTemplate = builder.build();
     }
 
+    WireMockServer wireMockServer;
+
     @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        createCartForUserControllerApiMock = Mockito.mock(CreateCartForUserControllerApi.class);
-        configuration = Mockito.mock(Configuration.class);
+    public void startWireMock() {
+        wireMockServer = new WireMockServer(8082);
+        wireMockServer.start();
+
+        wireMockServer.stubFor(post(urlEqualTo("/carts/createforuser"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBody("{ \"id\": \"6903ccd91ac6ffa53b99d881\", \"itemsDto\": [], \"totalPrice\": 0.0 }")));
     }
 
     @Given("Empty database")
-    public void emptyDatabase() throws ApiException {
+    public void emptyDatabase() {
         userRepository.deleteAll();
-        Assert.assertEquals(0, userRepository.findAll().size());
-        when(Configuration.getDefaultApiClient()).thenReturn(new ApiClient());
-        when(createCartForUserControllerApiMock.createCartForUser()).thenReturn(new CartDto());
+        assertEquals(0, userRepository.findAll().size());
     }
 
     @Given("This user information")
@@ -91,20 +82,21 @@ public class CreateNewUserStepDef {
 
     @Then("the client receives status code of {int}")
     public void theClientReceivesStatusCodeOf(int statusCode) {
-        Assert.assertEquals(HttpStatusCode.valueOf(statusCode), response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals(HttpStatusCode.valueOf(statusCode), response.getStatusCode());
     }
 
     @And("the client is in the database")
     public void theClientIsInTheDatabase() {
         String id = response.getBody().getId();
         Optional<UserEntity> addedUserOpt = userRepository.findById(new ObjectId(id));
-        Assert.assertTrue(addedUserOpt.isPresent());
+        assertTrue(addedUserOpt.isPresent());
         UserEntity userEntity = addedUserOpt.get();
-        Assert.assertEquals(userDto.getEmail(), userEntity.getEmail());
-        Assert.assertEquals(userDto.getUserAddressDto().getCity(), userEntity.getAddress().getCity());
-        Assert.assertEquals(userDto.getUserAddressDto().getCountry(), userEntity.getAddress().getCountry());
-        Assert.assertEquals(userDto.getUserAddressDto().getStreetName(), userEntity.getAddress().getStreetName());
-        Assert.assertEquals(userDto.getFirstname(), userEntity.getFirstname());
-        Assert.assertEquals(userDto.getLastname(), userEntity.getLastname());
+        assertEquals(userDto.getEmail(), userEntity.getEmail());
+        assertEquals(userDto.getUserAddressDto().getCity(), userEntity.getAddress().getCity());
+        assertEquals(userDto.getUserAddressDto().getCountry(), userEntity.getAddress().getCountry());
+        assertEquals(userDto.getUserAddressDto().getStreetName(), userEntity.getAddress().getStreetName());
+        assertEquals(userDto.getFirstname(), userEntity.getFirstname());
+        assertEquals(userDto.getLastname(), userEntity.getLastname());
     }
 }

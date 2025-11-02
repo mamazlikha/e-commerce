@@ -11,12 +11,11 @@ import anas.ecommerce.userservice.dtos.userdto.CreateUserDto;
 import anas.ecommerce.userservice.entities.UserEntity;
 import anas.ecommerce.userservice.exceptions.UserAlreadyExistException;
 import anas.ecommerce.userservice.mappers.IUserMapper;
-import jakarta.annotation.PostConstruct;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -25,29 +24,21 @@ import java.util.concurrent.CompletableFuture;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
 public class RegisterNewUserService implements IRegisterNewUserService {
 
     private final IUserMapper mapper;
-    @Value("${cartservice.host}")
-    private String cartServiceUrl;
 
+    private final IUserRepository repository;
 
-    @Value("${cartservice.port}")
-    private String cartServicePort;
-
-    @Autowired
-    private IUserRepository repository;
-
+    @Setter
     private CreateCartForUserControllerApi createCartForUserControllerApi;
 
 
-    @PostConstruct
-    @Profile("test")
-    public void afterInit(){
-        ApiClient cartServiceDefaultConfig = Configuration.getDefaultApiClient();
-        cartServiceDefaultConfig.setBasePath(cartServiceUrl+":"+cartServicePort);
-        this.createCartForUserControllerApi = new CreateCartForUserControllerApi(cartServiceDefaultConfig);
+    @Autowired
+    public RegisterNewUserService(IUserMapper mapper, IUserRepository repository, CreateCartForUserControllerApi createCartForUserControllerApi){
+        this.mapper = mapper;
+        this.repository = repository;
+        this.createCartForUserControllerApi = createCartForUserControllerApi;
     }
 
     @Async
