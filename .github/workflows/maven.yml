@@ -37,9 +37,17 @@ jobs:
           cache-dependency-path: ./front-end/package-lock.json
           registry-url: 'https://npm.pkg.github.com'
 
-      - run: npm install
-      - run: npm ci
-      - run: npm run test
-      - run: npm run build
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./front-end
+
+      - name: Run tests
+        run: npm run test
+        working-directory: ./front-end
+
+      - name: Build
+        run: npm run build
+        working-directory: ./front-end
+
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
