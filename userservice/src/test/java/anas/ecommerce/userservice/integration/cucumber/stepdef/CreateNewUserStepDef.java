@@ -1,5 +1,6 @@
 package anas.ecommerce.userservice.integration.cucumber.stepdef;
 
+import anas.ecommerce.client.api.CreateCartForUserControllerApi;
 import anas.ecommerce.userservice.contracts.repositories.IUserRepository;
 import anas.ecommerce.userservice.dtos.AddressDto;
 import anas.ecommerce.userservice.dtos.userdto.CreateUserDto;
@@ -13,6 +14,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +37,8 @@ public class CreateNewUserStepDef {
 
     @Autowired
     IUserRepository userRepository;
+    @MockBean
+    CreateCartForUserControllerApi createCartForUserControllerApi;
 
     @Autowired
     public CreateNewUserStepDef(RestTemplateBuilder builder) {
