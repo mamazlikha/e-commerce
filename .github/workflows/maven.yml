@@ -17,31 +17,7 @@ env:
   MAVEN_TOKEN: ${{ secrets.MAVEN_TOKEN }}
 
 jobs:
-  back-end:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: maven
-    - name: Build with Maven
-      working-directory: ./
-      run: |
-        sudo apt-get -q update
-        sudo apt-get -qy install
-        sudo chmod +x ./build.sh
-        ./build.sh mamazlikha $MAVEN_TOKEN
-    - name: Cleanup docker images and volumes
-      continue-on-error: true
-      run: |
-        docker stop $(docker ps -a);docker rm $(docker ps -qa);docker rmi -f $(docker image -qa);docker volume rm $(docker volume ls -q);docker system prune -af;
-
   front-end:
-    needs: back-end
     name: Angular Build
     runs-on: ubuntu-latest
     strategy:
@@ -59,18 +35,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
           cache-dependency-path: ./front-end/package-lock.json
+          registry-url: 'https://npm.pkg.github.com'
 
-      # {4}
-      - name: Install dependencies
-        working-directory: ./front-end
-        run: npm install
+      - run: npm install
+      - run: npm ci
+      - run: npm run test
+      - run: npm run build
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      # {5}
-      - name: Run tests
-        working-directory: ./front-end
-        run: npm run test
-      # {6}
-      - name: Build
-        working-directory: ./front-end
-        run: npm run build
