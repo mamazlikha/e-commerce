@@ -37,8 +37,6 @@ public class CreateNewUserStepDef {
 
     @Autowired
     IUserRepository userRepository;
-    @MockBean
-    CreateCartForUserControllerApi createCartForUserControllerApi;
 
     @Autowired
     public CreateNewUserStepDef(RestTemplateBuilder builder) {
